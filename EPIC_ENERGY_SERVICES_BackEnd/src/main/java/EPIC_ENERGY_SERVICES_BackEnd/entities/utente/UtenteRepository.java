@@ -1,4 +1,4 @@
-package EPIC_ENERGY_SERVICES_BackEnd.utente;
+package EPIC_ENERGY_SERVICES_BackEnd.entities.utente;
 
 import java.util.Optional;
 import java.util.UUID;

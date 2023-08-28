@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts; //libreria per generare token
 import io.jsonwebtoken.security.Keys;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.Utente;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.UnauthorizedException;
 
 @Component

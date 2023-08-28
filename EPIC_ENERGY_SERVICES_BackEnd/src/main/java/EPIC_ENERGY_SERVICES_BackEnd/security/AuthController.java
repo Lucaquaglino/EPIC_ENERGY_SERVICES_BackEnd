@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import EPIC_ENERGY_SERVICES_BackEnd.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.LoginSuccessfullPayload;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.NuovoUtentePayload;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.UtenteLoginPayload;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.UtenteService;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.UnauthorizedException;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.LoginSuccessfullPayload;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.NuovoUtentePayload;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.UtenteLoginPayload;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.UtenteService;
 
 @RestController
 @RequestMapping("/auth")

@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
-import EPIC_ENERGY_SERVICES_BackEnd.utente.Utente;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.NuovoUtentePayload;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.Ruolo;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.UtenteRepository;
-
-import EPIC_ENERGY_SERVICES_BackEnd.utente.UtenteService;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.NuovoUtentePayload;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.Ruolo;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.UtenteRepository;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.UtenteService;
 
 @Component
 public class UtenteRunner implements CommandLineRunner {

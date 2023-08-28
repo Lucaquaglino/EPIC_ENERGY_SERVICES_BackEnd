@@ -14,9 +14,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.Utente;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.utente.UtenteService;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.UnauthorizedException;
-import EPIC_ENERGY_SERVICES_BackEnd.utente.UtenteService;
 
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
