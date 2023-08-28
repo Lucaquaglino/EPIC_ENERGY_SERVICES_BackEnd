@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +18,7 @@ public class ClienteService {
 		ClienteRepository cr;
 		
 		// creazione cliente
-		public Cliente create(ClientePayload body) {
+		public Cliente creaCliente(ClientePayload body) {
 			
 			//check se il cliente già esiste tramite la pec
 			cr.findByPec(body.getPec()).ifPresent(cliente -> {
@@ -43,6 +47,14 @@ public class ClienteService {
 					.build();
 			
 			return cr.save(newCliente);
+		}
+		
+		//ordinamento per nome ragione sociale
+		public Page<Cliente> findByRagioneSociale(int page, int size, String sort){
+			
+			Pageable p = PageRequest.of(page, size, Sort.by(sort));
+			
+			return cr.findAll(p);
 		}
 	
 }
