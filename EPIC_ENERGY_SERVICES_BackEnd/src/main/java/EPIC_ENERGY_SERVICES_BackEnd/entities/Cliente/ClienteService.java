@@ -53,6 +53,18 @@ public class ClienteService {
 			return cr.findAll(Sort.by(ragioneSociale));
 		}
 		
+		//ordinamento fatturazione annuale
+		public List<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale){		
+			
+			List<Cliente> lista = cr.findAll();
+			
+			List<Cliente> result = lista.stream()
+					.sorted()
+					.collect(Collectors.toList());
+			
+			return result;
+		}
+		
 		//filtro fatturazione annuale
 		public List<Cliente> filterFatturatoAnnuale(double filter){
 			
@@ -61,6 +73,7 @@ public class ClienteService {
 					.collect(Collectors.toList());
 			
 			return lista;
+			
 		}
 		
 	
