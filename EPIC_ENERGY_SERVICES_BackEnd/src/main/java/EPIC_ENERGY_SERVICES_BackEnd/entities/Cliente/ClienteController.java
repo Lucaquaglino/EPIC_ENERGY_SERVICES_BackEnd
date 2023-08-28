@@ -30,9 +30,9 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{sortParam}")
-	public ResponseEntity<List<Cliente>> getClienti(@PathVariable String sort){
+	public ResponseEntity<List<Cliente>> getClientiOrdinati(@PathVariable String sort){
 		
-		List<Cliente> listaClienti = cs.find(sort);
+		List<Cliente> listaClienti = cs.findOrder(sort);
 		
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
@@ -42,5 +42,16 @@ public class ClienteController {
 
 	}
 	
-	
+	@GetMapping("/{fatturazione}")
+	public ResponseEntity<List<Cliente>> getClientiFiltrati(@PathVariable double fatturazione){
+		
+		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturazione);
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+	}
 }

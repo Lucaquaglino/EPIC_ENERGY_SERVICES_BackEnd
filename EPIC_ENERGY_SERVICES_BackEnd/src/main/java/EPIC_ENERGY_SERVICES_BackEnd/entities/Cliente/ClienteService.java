@@ -3,6 +3,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -48,8 +49,18 @@ public class ClienteService {
 		}
 		
 		//ordinamento
-		public List<Cliente> find(String sort){		
+		public List<Cliente> findOrder(String sort){		
 			return cr.findAll(Sort.by(sort));
+		}
+		
+		//filtro fatturazione annuale
+		public List<Cliente> filterFatturatoAnnuale(double filter){
+			
+			List<Cliente> lista = cr.findAll().stream()
+					.filter(c -> c.getFatturatoAnnuale()==filter)
+					.collect(Collectors.toList());
+			
+			return lista;
 		}
 		
 	
