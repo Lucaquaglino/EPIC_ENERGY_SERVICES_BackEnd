@@ -26,25 +26,25 @@ public class Cliente {
 	private UUID id_cliente;
 	
 	//dati cliente (azienda)
-	private String ragione_sociale;
-	private int partita_iva;
-	private String email_cliente;
+	private String ragioneSociale;
+	private int partitaIva;
+	private String emailCliente;
 	private String pec;
-	private int telefono_cliente;
+	private int telefonoCliente;
 	private List<String> indirizzi;
 	@Enumerated(EnumType.STRING)
-	private TIPO_CLIENTE tipo_cliente;
+	private TIPO_CLIENTE tipoCliente;
 	
 	//dati contatto
-	private String nome_contatto;
-	private String cognome_contatto;
-	private String email_contatto;
-	private int telefono_contatto;
+	private String nomeContatto;
+	private String cognomeContatto;
+	private String emailContatto;
+	private int telefonoContatto;
 	
 	//attributi inizializzati alla crazione
-	private LocalDate data_inserimento;
-	private LocalDate ultimo_contatto; 
-	final private double fatturato_annuale = 0;
+	private LocalDate dataInserimento;
+	private LocalDate ultimoContatto; 
+	final private double fatturatoAnnuale = 0;
 	
 	
 }

@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -27,34 +24,33 @@ public class ClienteService {
 			
 			List<String> indirizzi = new ArrayList<String>();
 			
-			indirizzi.add(body.getIndirizzo_uno());
-			indirizzi.add(body.getIndirizzo_due());
+			indirizzi.add(body.getIndirizzoUno());
+			indirizzi.add(body.getIndirizzoDue());
 			
 			Cliente newCliente = Cliente.builder()
-					.ragione_sociale(body.getRagione_sociale())
-					.partita_iva(body.getPartita_iva())
-					.email_cliente(body.getEmail_cliente())
+					.ragioneSociale(body.getRagioneSociale())
+					.partitaIva(body.getPartitaIva())
+					.emailCliente(body.getEmailCliente())
 					.pec(body.getPec())
-					.telefono_cliente(body.getTelefono_cliente())
+					.telefonoCliente(body.getTelefonoCliente())
 					.indirizzi(indirizzi)
-					.tipo_cliente(body.getTipo_cliente())
-					.nome_contatto(body.getNome_contatto())
-					.cognome_contatto(body.getCognome_contatto())
-					.email_contatto(body.getEmail_contatto())
-					.telefono_contatto(body.getTelefono_contatto())
-					.data_inserimento(LocalDate.now())
-					.ultimo_contatto(LocalDate.now())
+					.tipoCliente(body.getTipoCliente())
+					.nomeContatto(body.getNomeContatto())
+					.cognomeContatto(body.getCognomeContatto())
+					.emailContatto(body.getEmailContatto())
+					.telefonoContatto(body.getTelefonoContatto())
+					.dataInserimento(LocalDate.now())
+					.ultimoContatto(LocalDate.now())
 					.build();
 			
 			return cr.save(newCliente);
+			
 		}
 		
-		//ordinamento per nome ragione sociale
-		public Page<Cliente> findByRagioneSociale(int page, int size, String sort){
-			
-			Pageable p = PageRequest.of(page, size, Sort.by(sort));
-			
-			return cr.findAll(p);
+		//ordinamento
+		public List<Cliente> find(String sort){		
+			return cr.findAll(Sort.by(sort));
 		}
+		
 	
 }
