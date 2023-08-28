@@ -28,8 +28,7 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties({"password", })
-@Getter
-@Setter
+
 
 
 
