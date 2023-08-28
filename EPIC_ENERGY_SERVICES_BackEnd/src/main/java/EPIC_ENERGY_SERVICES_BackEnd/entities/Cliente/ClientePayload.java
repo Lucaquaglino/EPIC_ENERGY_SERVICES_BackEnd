@@ -1,7 +1,5 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +15,8 @@ public class ClientePayload {
 	private String email_cliente;
 	private String pec;
 	private int telefono_cliente;
-	private List<String> indirizzi;
+	private String indirizzo_uno;
+	private String indirizzo_due;
 	private TIPO_CLIENTE tipo_cliente;
 		
 	//dati contatto

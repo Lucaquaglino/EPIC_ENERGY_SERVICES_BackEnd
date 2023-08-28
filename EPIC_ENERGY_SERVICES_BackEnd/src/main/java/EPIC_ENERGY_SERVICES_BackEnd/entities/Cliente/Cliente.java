@@ -25,7 +25,7 @@ public class Cliente {
 	@GeneratedValue
 	private UUID id_cliente;
 	
-	//dati cliente
+	//dati cliente (azienda)
 	private String ragione_sociale;
 	private int partita_iva;
 	private String email_cliente;
@@ -43,7 +43,8 @@ public class Cliente {
 	
 	//attributi inizializzati alla crazione
 	private LocalDate data_inserimento;
-	private double fatturato_annuale;
 	private LocalDate ultimo_contatto; 
+	final private double fatturato_annuale = 0;
+	
 	
 }
