@@ -48,9 +48,9 @@ public class ClienteService {
 			
 		}
 		
-		//ordinamento
-		public List<Cliente> findOrder(String sort){		
-			return cr.findAll(Sort.by(sort));
+		//ordinamento ragione sociale
+		public List<Cliente> findByRagioneSociale(String ragioneSociale){		
+			return cr.findAll(Sort.by(ragioneSociale));
 		}
 		
 		//filtro fatturazione annuale

@@ -29,10 +29,10 @@ public class ClienteController {
 		return clienteCreato;
 	}
 	
-	@GetMapping("/{sortParam}")
-	public ResponseEntity<List<Cliente>> getClientiOrdinati(@PathVariable String sort){
+	@GetMapping("/{ragioneSociale}")
+	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale(@PathVariable String ragioneSociale){
 		
-		List<Cliente> listaClienti = cs.findOrder(sort);
+		List<Cliente> listaClienti = cs.findByRagioneSociale(ragioneSociale);
 		
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
@@ -42,10 +42,10 @@ public class ClienteController {
 
 	}
 	
-	@GetMapping("/{fatturazione}")
-	public ResponseEntity<List<Cliente>> getClientiFiltrati(@PathVariable double fatturazione){
+	@GetMapping("/{fatturatoAnnuale}")
+	public ResponseEntity<List<Cliente>> getClientiFiltrati(@PathVariable double fatturatoAnnuale){
 		
-		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturazione);
+		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturatoAnnuale);
 		
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
