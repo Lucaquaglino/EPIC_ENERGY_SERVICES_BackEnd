@@ -7,11 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Indirizzo {
 	@Id
@@ -23,5 +23,14 @@ public class Indirizzo {
 	private int cap;
 	@OneToOne
 	private Comune comune;
+
+	public Indirizzo(String via, String civico, String localita, int cap, Comune comune) {
+
+		this.via = via;
+		this.civico = civico;
+		this.localita = localita;
+		this.cap = cap;
+		this.comune = comune;
+	}
 
 }
