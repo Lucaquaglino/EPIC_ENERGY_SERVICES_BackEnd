@@ -31,7 +31,7 @@ public class AuthController {
 
 	@PostMapping("/register")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveUser(@RequestBody NuovoUtentePayload body) {
+	public Utente saveUtente(@RequestBody NuovoUtentePayload body) {
 
 		body.setPassword(bcrypt.encode(body.getPassword()));
 		Utente created = utenteService.save(body);

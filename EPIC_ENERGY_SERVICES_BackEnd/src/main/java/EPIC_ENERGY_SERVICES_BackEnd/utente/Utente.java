@@ -48,14 +48,15 @@ public class Utente implements UserDetails {
 	private Ruolo ruolo;
 
 
-	public Utente (String username, String nome, String cognome, String email,String password) {
+	public Utente (String username, String nome, String cognome, String email,String password, Ruolo ruolo) {
 		
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-		this.ruolo = Ruolo.UTENTE;
+		this.ruolo = ruolo;
+		
 	}
 	
 	@Override

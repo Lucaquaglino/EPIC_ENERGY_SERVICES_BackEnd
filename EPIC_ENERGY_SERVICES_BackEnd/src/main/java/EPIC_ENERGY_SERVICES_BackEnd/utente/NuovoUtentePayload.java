@@ -14,6 +14,6 @@ public class NuovoUtentePayload {
 	private String cognome;
 	private String email;
 	private String password;
-
+	private Ruolo ruolo;
 
 }
