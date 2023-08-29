@@ -17,6 +17,8 @@ public class SecurityConfig {
 
 	@Autowired
 	JWTAuthFilter jwtFilter;
+	@Autowired
+	CorsFilter corsFilter;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,11 +28,12 @@ public class SecurityConfig {
 
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/provincia/**").permitAll());
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 		return http.build();
 	}
 
