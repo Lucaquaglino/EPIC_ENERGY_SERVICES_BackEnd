@@ -35,4 +35,8 @@ public class ProvinciaService {
 		return provinciaRepo.findById(idProvincia).orElseThrow(() -> new NotFoundException());
 	}
 
+	public Provincia findByName(String nomeProvincia) {
+		return provinciaRepo.findByProvinciaIgnoreCase(nomeProvincia);
+	}
+
 }

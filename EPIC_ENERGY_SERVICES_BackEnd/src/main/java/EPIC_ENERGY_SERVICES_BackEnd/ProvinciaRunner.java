@@ -1,10 +1,13 @@
 package EPIC_ENERGY_SERVICES_BackEnd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -15,7 +18,7 @@ import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.ProvinciaRepository;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.ProvinciaService;
 
 @Component
-@Order(0)
+@Order(1)
 public class ProvinciaRunner implements CommandLineRunner {
 
 	@Autowired
@@ -31,24 +34,23 @@ public class ProvinciaRunner implements CommandLineRunner {
 		if (provinceDb.isEmpty()) {
 			try {
 				File csvFile = new File(csvFilePath);
-				Scanner scanner = new Scanner(csvFile);
+				FileReader fileReader = new FileReader(csvFile);
 
-				while (scanner.hasNextLine()) {
-					String line = scanner.nextLine();
-					String[] values = line.split(System.lineSeparator());
-					for (String value : values) {
-						String sigla = value.split(";")[0];
-						String provincia = value.split(";")[1];
-						String regione = value.split(";")[2];
+				CSVParser csvParser = CSVFormat.DEFAULT.withDelimiter(';').parse(fileReader);
+				for (CSVRecord record : csvParser) {
+					if (record.size() >= 3) {
+						String sigla = record.get(0);
+						String provincia = record.get(1);
+						String regione = record.get(2);
 
 						provinciaService.create(sigla, provincia, regione);
 					}
 				}
-				scanner.close();
-			} catch (FileNotFoundException e) {
+
+				csvParser.close();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
 }
