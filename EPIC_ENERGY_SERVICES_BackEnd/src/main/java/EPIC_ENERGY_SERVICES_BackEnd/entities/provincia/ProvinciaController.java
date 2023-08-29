@@ -23,7 +23,7 @@ public class ProvinciaController {
 
 	@GetMapping("/{provincia}")
 	public Provincia findById(@PathVariable String provincia) throws NotFoundException {
-		return ps.findById(provincia);
+		return ps.findByName(provincia);
 	}
 
 //	@Autowired
