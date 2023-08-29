@@ -78,6 +78,16 @@ public class ClienteService {
 	        return result;
 	    }
 		
+		//--------------------------------------------------------------------------- ordinamento per data di ultimo contatto
+		public List<Cliente> orderByUltimoContatto() { 
+					
+			List<Cliente> result = cr.findAll().stream()
+					.sorted(Comparator.comparing(Cliente::getUltimoContatto))
+					.collect(Collectors.toList());
+			        
+			return result;
+		}
+		
 		//--------------------------------------------------------------------------- filtro fatturazione annuale
 		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
 			

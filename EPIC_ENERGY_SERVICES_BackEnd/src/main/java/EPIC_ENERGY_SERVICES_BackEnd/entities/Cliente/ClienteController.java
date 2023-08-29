@@ -69,6 +69,19 @@ public class ClienteController {
 
 	}
 	
+	@GetMapping("/orderByUltimoContatto")
+	public ResponseEntity<List<Cliente>> getOrderByUltimoContatto(){
+		
+		List<Cliente> listaClienti = cs.orderByUltimoContatto();
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+	}
+	
 	@GetMapping("/{fatturatoAnnuale}")
 	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale){
 		
