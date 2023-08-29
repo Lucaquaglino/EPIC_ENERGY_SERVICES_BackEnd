@@ -20,21 +20,21 @@ public class ClienteController {
 
 	@Autowired
 	ClienteService cs;
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente salvaCliente(@RequestBody ClientePayload body) {
-		
+
 		Cliente clienteCreato = cs.creaCliente(body);
-		
+
 		return clienteCreato;
 	}
-	
+
 	@GetMapping("/orderByRagioneSociale")
-	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale(){
-		
+	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale() {
+
 		List<Cliente> listaClienti = cs.orderByRagioneSociale();
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
@@ -42,12 +42,12 @@ public class ClienteController {
 		}
 
 	}
-	
+
 	@GetMapping("/orderByFatturatoAnnuale")
-	public ResponseEntity<List<Cliente>> getOrderByFatturatoAnnuale(){
-		
+	public ResponseEntity<List<Cliente>> getOrderByFatturatoAnnuale() {
+
 		List<Cliente> listaClienti = cs.orderByFatturatoAnnuale();
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
@@ -55,12 +55,12 @@ public class ClienteController {
 		}
 
 	}
-	
-	@GetMapping("/orderByFatturatoAnnuale")
-	public ResponseEntity<List<Cliente>> getOrderByDataInserimento(){
-		
+
+	@GetMapping("/orderByDataInserimento")
+	public ResponseEntity<List<Cliente>> getOrderByDataInserimento() {
+
 		List<Cliente> listaClienti = cs.orderByDataInserimento();
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
@@ -68,12 +68,12 @@ public class ClienteController {
 		}
 
 	}
-	
+
 	@GetMapping("/orderByUltimoContatto")
-	public ResponseEntity<List<Cliente>> getOrderByUltimoContatto(){
-		
+	public ResponseEntity<List<Cliente>> getOrderByUltimoContatto() {
+
 		List<Cliente> listaClienti = cs.orderByUltimoContatto();
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
@@ -81,58 +81,57 @@ public class ClienteController {
 		}
 
 	}
-	
+
 	@GetMapping("/{fatturatoAnnuale}")
-	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale){
-		
+	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale) {
+
 		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturatoAnnuale);
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		
+
 	}
-	
-	
+
 	@GetMapping("/{dataInserimento}")
-	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento){
-		
+	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento) {
+
 		List<Cliente> listaClienti = cs.filterDataInserimento(dataInserimento);
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		
+
 	}
-	
+
 	@GetMapping("/{dataUltimoContatto}")
-	public ResponseEntity<List<Cliente>> getFiltroDataUltimoContatto(@PathVariable LocalDate dataUltimoContatto){
-		
+	public ResponseEntity<List<Cliente>> getFiltroDataUltimoContatto(@PathVariable LocalDate dataUltimoContatto) {
+
 		List<Cliente> listaClienti = cs.filterDataUltimoContatto(dataUltimoContatto);
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		
+
 	}
-	
+
 	@GetMapping("/{parteRagioneSociale}")
-	public ResponseEntity<List<Cliente>> getFiltroParteRagioneSociale(@PathVariable String parteRagioneSociale){
-		
+	public ResponseEntity<List<Cliente>> getFiltroParteRagioneSociale(@PathVariable String parteRagioneSociale) {
+
 		List<Cliente> listaClienti = cs.filterParteRagioneSociale(parteRagioneSociale);
-		
+
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		
+
 	}
 
 }
