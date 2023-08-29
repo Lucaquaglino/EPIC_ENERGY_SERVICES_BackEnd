@@ -30,10 +30,36 @@ public class ClienteController {
 		return clienteCreato;
 	}
 	
-	@GetMapping("/{ragioneSociale}")
-	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale(@PathVariable String ragioneSociale){
+	@GetMapping("/orderByRagioneSociale")
+	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale(){
 		
-		List<Cliente> listaClienti = cs.findByRagioneSociale(ragioneSociale);
+		List<Cliente> listaClienti = cs.orderByRagioneSociale();
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+	}
+	
+	@GetMapping("/orderByFatturatoAnnuale")
+	public ResponseEntity<List<Cliente>> getOrderByFatturatoAnnuale(){
+		
+		List<Cliente> listaClienti = cs.orderByFatturatoAnnuale();
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+	}
+	
+	@GetMapping("/orderByFatturatoAnnuale")
+	public ResponseEntity<List<Cliente>> getOrderByDataInserimento(){
+		
+		List<Cliente> listaClienti = cs.orderByDataInserimento();
 		
 		if (!listaClienti.isEmpty()) {
 			return new ResponseEntity<>(listaClienti, HttpStatus.OK);

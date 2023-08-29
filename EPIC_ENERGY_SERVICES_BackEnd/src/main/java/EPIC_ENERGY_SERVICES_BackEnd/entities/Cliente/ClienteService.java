@@ -2,11 +2,11 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -49,21 +49,34 @@ public class ClienteService {
 		}
 		
 		//--------------------------------------------------------------------------- ordinamento ragione sociale
-		public List<Cliente> findByRagioneSociale(String ragioneSociale){		
-			return cr.findAll(Sort.by(ragioneSociale));
-		}
-		
-		//--------------------------------------------------------------------------- ordinamento fatturazione annuale
-		public List<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale){		
+		public List<Cliente> orderByRagioneSociale(){	
 			
-			List<Cliente> lista = cr.findAll();
-			
-			List<Cliente> result = lista.stream()
-					.sorted()
+			List<Cliente> result = cr.findAll().stream()
+					.sorted(Comparator.comparing(Cliente::getRagioneSociale))
 					.collect(Collectors.toList());
 			
 			return result;
 		}
+		
+		//--------------------------------------------------------------------------- ordinamento fatturazione annuale
+		public List<Cliente> orderByFatturatoAnnuale(){		
+						
+			List<Cliente> result = cr.findAll().stream()
+					.sorted((c1, c2) -> Double.compare(c1.getFatturatoAnnuale(), c2.getFatturatoAnnuale()))
+					.collect(Collectors.toList());
+			
+			return result;
+		}
+		
+		//--------------------------------------------------------------------------- ordinamento per data di inserimento
+		public List<Cliente> orderByDataInserimento() { 
+			
+	        List<Cliente> result = cr.findAll().stream()
+	            .sorted(Comparator.comparing(Cliente::getDataInserimento))
+	            .collect(Collectors.toList());
+	        
+	        return result;
+	    }
 		
 		//--------------------------------------------------------------------------- filtro fatturazione annuale
 		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
