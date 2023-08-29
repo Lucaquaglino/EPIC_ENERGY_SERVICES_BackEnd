@@ -30,9 +30,9 @@ public class ProvinciaService {
 		Pageable pagina = PageRequest.of(page, 10, Sort.by(ordinamento));
 		return provinciaRepo.findAll(pagina);
 	}
-
-	public Provincia findById(String idProvincia) throws NotFoundException {
-		return provinciaRepo.findById(idProvincia).orElseThrow(() -> new NotFoundException());
-	}
+//
+//	public Provincia findById(String idProvincia) throws NotFoundException {
+//		return provinciaRepo.findById(idProvincia).orElseThrow(() -> new NotFoundException());
+//	}
 
 }

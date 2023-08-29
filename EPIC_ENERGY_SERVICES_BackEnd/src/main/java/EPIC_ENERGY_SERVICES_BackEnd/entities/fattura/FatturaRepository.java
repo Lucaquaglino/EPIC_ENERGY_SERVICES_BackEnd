@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 	
-	List<Fattura> findByClienteId(UUID idCliente);
-	List<Fattura> findByStato(StatoFattura stato);
+//	List<Fattura> findByClienteId(UUID idCliente);
+	List<Fattura> findByStatoFattura(StatoFattura statoFattura);
 	List<Fattura> findByData(LocalDate data);
 	List<Fattura> findByAnno(int anno);
-	List<Fattura> findByRangeImporti(BigDecimal primoImporto, BigDecimal secImporto);
+	List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto);
 	
 }

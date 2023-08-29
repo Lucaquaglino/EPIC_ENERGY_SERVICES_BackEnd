@@ -56,20 +56,20 @@ public class FatturaService {
 		fatturaRepo.delete(fatturaTrovata);
 	}
 	
-	public List<Fattura> findByClienteId(UUID idCliente) throws NotFoundException {
-		List<Fattura> listaFatture = fatturaRepo.findByClienteId(idCliente);
-
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per il cliente con ID:" + idCliente);
-		}
-		return listaFatture;
-	}
+//	public List<Fattura> findByClienteId(UUID idCliente) throws NotFoundException {
+//		List<Fattura> listaFatture = fatturaRepo.findByClienteId(idCliente);
+//
+//		if(listaFatture.isEmpty()) {
+//			throw new NotFoundException("Nessuna fattura trovata per il cliente con ID:" + idCliente);
+//		}
+//		return listaFatture;
+//	}
 	
-	public List<Fattura> findByStato(StatoFattura stato) throws NotFoundException {
-		List<Fattura> listaFatture = fatturaRepo.findByStato(stato);
+	public List<Fattura> findByStatoFattura(StatoFattura statoFattura) throws NotFoundException {
+		List<Fattura> listaFatture = fatturaRepo.findByStatoFattura(statoFattura);
 		
 		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per lo stato" + stato);
+			throw new NotFoundException("Nessuna fattura trovata per lo stato" + statoFattura);
 		}
 		return listaFatture;
 	}
@@ -95,11 +95,11 @@ public class FatturaService {
 		return listaFatture;
 	}
 	
-	public List<Fattura> findByRangeImporti(BigDecimal primoImporto, BigDecimal secImporto) throws NotFoundException {
-		List<Fattura> listaFatture = fatturaRepo.findByRangeImporti(primoImporto, secImporto);
+	public List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto) throws NotFoundException {
+		List<Fattura> listaFatture = fatturaRepo.findByImportoBetween(minImporto, maxImporto);
 		
 		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata tra i range dei seguenti importi:" + primoImporto + " - " + secImporto);
+			throw new NotFoundException("Nessuna fattura trovata tra i range dei seguenti importi:" + minImporto + " - " + maxImporto);
 		}
 
 		return listaFatture;

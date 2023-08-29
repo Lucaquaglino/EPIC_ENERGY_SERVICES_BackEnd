@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ public class Fattura {
 	private BigDecimal importo;
 	private double numeroFattura = 0;
 	
-	@ManyToMany
+//	@ManyToMany
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
 	
