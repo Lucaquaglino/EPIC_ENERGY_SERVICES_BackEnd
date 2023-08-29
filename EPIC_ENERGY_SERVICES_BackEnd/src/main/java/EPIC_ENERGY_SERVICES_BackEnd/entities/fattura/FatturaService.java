@@ -1,11 +1,9 @@
-package EPIC_ENERGY_SERVICES_BackEnd.entities.Fattura;
+package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-
-import EPIC_ENERGY_SERVICES_BackEnd.entities.Fattura.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
 
 @Service
 public class FatturaService {
@@ -25,8 +25,9 @@ public class FatturaService {
 		this.fatturaRepo = fatturaRepo;
 	}
 
+	//To add Cliente, body.getCliente
 	public Fattura create(Fattura body) {
-		Fattura newFattura = new Fattura(null, body.getAnno(), null, body.getImporto(), 0, body.getStatoFattura(), body.getCliente());
+		Fattura newFattura = new Fattura(null, body.getAnno(), null, body.getImporto(), 0, body.getStatoFattura());
 		return fatturaRepo.save(newFattura);
 	}
 

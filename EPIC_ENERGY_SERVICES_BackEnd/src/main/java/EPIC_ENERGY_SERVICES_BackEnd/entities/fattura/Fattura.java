@@ -1,4 +1,4 @@
-package EPIC_ENERGY_SERVICES_BackEnd.entities.Fattura;
+package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -33,6 +33,6 @@ public class Fattura {
 	@ManyToMany
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
-	@ManyToOne
-	private Cliente cliente;
+//	@ManyToOne
+//	private Cliente cliente;
 }

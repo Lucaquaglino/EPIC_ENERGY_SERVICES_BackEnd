@@ -1,4 +1,4 @@
-package EPIC_ENERGY_SERVICES_BackEnd.entities.Fattura;
+package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
