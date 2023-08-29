@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,17 +29,18 @@ public class Fattura {
 	private BigDecimal importo;
 	private double numeroFattura = 0;
 	
-//	@ManyToMany
+	@ManyToMany
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
 	
-//	@ManyToOne
-//	private Cliente cliente;
+	@ManyToOne
+	private Cliente cliente;
 	
-	public Fattura(int _anno, LocalDate _data, BigDecimal _importo, StatoFattura _statoFattura) {
+	public Fattura(int _anno, LocalDate _data, BigDecimal _importo, StatoFattura _statoFattura, Cliente _cliente) {
 		this.anno = _anno;
 		this.data = _data;
 		this.importo = _importo;
 		this.statoFattura = _statoFattura;
+		this.cliente = _cliente;
 	}
 }
