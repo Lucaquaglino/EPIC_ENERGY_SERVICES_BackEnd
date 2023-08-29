@@ -76,7 +76,7 @@ public class ClienteService {
 			
 		}
 		
-		//--------------------------------------------------------------------------- filtro fatturazione annuale
+		//--------------------------------------------------------------------------- filtro data di inserimento
 		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){
 					
 			List<Cliente> lista = cr.findAll().stream()
@@ -85,5 +85,16 @@ public class ClienteService {
 					
 			return lista;
 					
+		}
+		
+		//--------------------------------------------------------------------------- filtro data ultimo contatto
+		public List<Cliente> filterDataUltimoContatto(LocalDate dataUltimoContatto){
+							
+			List<Cliente> lista = cr.findAll().stream()
+					.filter(c -> c.getUltimoContatto().equals(dataUltimoContatto))
+					.collect(Collectors.toList());
+							
+			return lista;
+							
 		}
 }
