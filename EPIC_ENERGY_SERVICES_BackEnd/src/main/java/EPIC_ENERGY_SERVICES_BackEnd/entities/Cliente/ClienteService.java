@@ -15,7 +15,7 @@ public class ClienteService {
 		@Autowired
 		ClienteRepository cr;
 		
-		// creazione cliente
+		//--------------------------------------------------------------------------- creazione cliente
 		public Cliente creaCliente(ClientePayload body) {
 			
 			//check se il cliente già esiste tramite la pec
@@ -48,12 +48,12 @@ public class ClienteService {
 			
 		}
 		
-		//ordinamento ragione sociale
+		//--------------------------------------------------------------------------- ordinamento ragione sociale
 		public List<Cliente> findByRagioneSociale(String ragioneSociale){		
 			return cr.findAll(Sort.by(ragioneSociale));
 		}
 		
-		//ordinamento fatturazione annuale
+		//--------------------------------------------------------------------------- ordinamento fatturazione annuale
 		public List<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale){		
 			
 			List<Cliente> lista = cr.findAll();
@@ -65,7 +65,7 @@ public class ClienteService {
 			return result;
 		}
 		
-		//filtro fatturazione annuale
+		//--------------------------------------------------------------------------- filtro fatturazione annuale
 		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
 			
 			List<Cliente> lista = cr.findAll().stream()
@@ -76,7 +76,7 @@ public class ClienteService {
 			
 		}
 		
-		//filtro fatturazione annuale
+		//--------------------------------------------------------------------------- filtro fatturazione annuale
 		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){
 					
 			List<Cliente> lista = cr.findAll().stream()

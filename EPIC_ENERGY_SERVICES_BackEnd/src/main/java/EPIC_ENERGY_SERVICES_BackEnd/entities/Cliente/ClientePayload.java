@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ClientePayload {
 
-	//dati cliente
+	//-------------------------------- dati cliente
 	private String ragioneSociale;
 	private int partitaIva;
 	private String emailCliente;
@@ -19,7 +19,7 @@ public class ClientePayload {
 	private String indirizzoDue;
 	private TIPO_CLIENTE tipoCliente;
 		
-	//dati contatto
+	//-------------------------------- dati contatto
 	private String nomeContatto;
 	private String cognomeContatto;
 	private String emailContatto;

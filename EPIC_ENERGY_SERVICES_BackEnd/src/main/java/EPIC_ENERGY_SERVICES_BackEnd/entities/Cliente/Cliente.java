@@ -25,7 +25,7 @@ public class Cliente {
 	@GeneratedValue
 	private UUID id_cliente;
 	
-	//dati cliente (azienda)
+	//-------------------------------- dati cliente (azienda)
 	private String ragioneSociale;
 	private int partitaIva;
 	private String emailCliente;
@@ -35,13 +35,13 @@ public class Cliente {
 	@Enumerated(EnumType.STRING)
 	private TIPO_CLIENTE tipoCliente;
 	
-	//dati contatto
+	//--------------------------------  dati contatto
 	private String nomeContatto;
 	private String cognomeContatto;
 	private String emailContatto;
 	private int telefonoContatto;
 	
-	//attributi inizializzati alla crazione
+	//-------------------------------- attributi inizializzati alla crazione
 	private LocalDate dataInserimento;
 	private LocalDate ultimoContatto; 
 	final private double fatturatoAnnuale = 0;
