@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,10 +32,10 @@ public class FatturaService {
 		this.cr = cr;
 	}
 
-	public Fattura create(Fattura fattura) {
-		Cliente clienteId = cr.findById(fattura.getCliente().getId_cliente()).orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
+	public Fattura creaFattura(FatturaPayload body) {
+		Cliente clienteId = cr.findById(body.getCliente().getId_cliente()).orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 		
-		Fattura newFattura = new Fattura( fattura.getAnno(), fattura.getData(), fattura.getImporto(), fattura.getStatoFattura(), clienteId);
+		Fattura newFattura = new Fattura( body.getAnno(), body.getData(), body.getImporto(), body.getStatoFattura(), clienteId);
 		
 		newFattura.setCliente(clienteId);
 		return fr.save(newFattura);
@@ -112,6 +113,28 @@ public class FatturaService {
 		}
 
 		return listaFatture;
+	}
+	
+//	----------------------------------- FILTERS ----------------------------------
+	
+	public List<Fattura> filterByCliente(Cliente cliente) {
+		return fr.findAll().stream().filter(f -> f.getCliente().equals(cliente)).collect(Collectors.toList());
+	}
+	
+	public List<Fattura> filterByStato(StatoFattura stato) {
+		return fr.findAll().stream().filter(f -> f.getStatoFattura().equals(stato)).collect(Collectors.toList());
+	}
+	
+	public List<Fattura> filterByData(LocalDate data) {
+		return fr.findAll().stream().filter(f -> f.getData().equals(data)).collect(Collectors.toList());
+	}
+	
+	public List<Fattura> filterByAnno(int anno) {
+		return fr.findAll().stream().filter(f -> f.getAnno() == anno).collect(Collectors.toList());
+	}
+	
+	public List<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto) {
+		return fr.findAll().stream().filter(f -> f.getImporto().compareTo(minImporto) >= 0 && f.getImporto().compareTo(maxImporto) <= 0).collect(Collectors.toList());
 	}
 
 }

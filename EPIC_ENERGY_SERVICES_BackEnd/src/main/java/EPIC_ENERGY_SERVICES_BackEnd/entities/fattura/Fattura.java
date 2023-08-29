@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -30,7 +28,6 @@ public class Fattura {
 	private double numeroFattura = 0;
 	
 	@ManyToMany
-	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
 	
 	@ManyToOne
