@@ -68,4 +68,19 @@ public class ClienteController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		
-	}}
+	}
+	
+	@GetMapping("/{dataUltimoContatto}")
+	public ResponseEntity<List<Cliente>> getFiltroDataUltimoContatto(@PathVariable LocalDate dataUltimoContatto){
+		
+		List<Cliente> listaClienti = cs.filterDataUltimoContatto(dataUltimoContatto);
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+	}
+
+}
