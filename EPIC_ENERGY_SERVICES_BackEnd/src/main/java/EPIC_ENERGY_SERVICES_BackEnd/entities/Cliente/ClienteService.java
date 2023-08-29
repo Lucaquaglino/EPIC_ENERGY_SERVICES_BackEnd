@@ -66,15 +66,24 @@ public class ClienteService {
 		}
 		
 		//filtro fatturazione annuale
-		public List<Cliente> filterFatturatoAnnuale(double filter){
+		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
 			
 			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getFatturatoAnnuale()==filter)
+					.filter(c -> c.getFatturatoAnnuale()==fatturatoAnnuale)
 					.collect(Collectors.toList());
 			
 			return lista;
 			
 		}
 		
-	
+		//filtro fatturazione annuale
+		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){
+					
+			List<Cliente> lista = cr.findAll().stream()
+					.filter(c -> c.getDataInserimento().equals(dataInserimento))
+					.collect(Collectors.toList());
+					
+			return lista;
+					
+		}
 }

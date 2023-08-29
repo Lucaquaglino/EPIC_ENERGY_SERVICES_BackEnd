@@ -1,5 +1,6 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{fatturatoAnnuale}")
-	public ResponseEntity<List<Cliente>> getClientiFiltrati(@PathVariable double fatturatoAnnuale){
+	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale){
 		
 		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturatoAnnuale);
 		
@@ -54,4 +55,17 @@ public class ClienteController {
 		}
 		
 	}
-}
+	
+	
+	@GetMapping("/{dataInserimento}")
+	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento){
+		
+		List<Cliente> listaClienti = cs.filterDataInserimento(dataInserimento);
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+	}}
