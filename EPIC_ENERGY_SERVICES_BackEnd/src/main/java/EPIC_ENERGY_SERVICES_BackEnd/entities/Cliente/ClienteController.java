@@ -82,5 +82,18 @@ public class ClienteController {
 		}
 		
 	}
+	
+	@GetMapping("/{parteRagioneSociale}")
+	public ResponseEntity<List<Cliente>> getFiltroParteRagioneSociale(@PathVariable String parteRagioneSociale){
+		
+		List<Cliente> listaClienti = cs.filterParteRagioneSociale(parteRagioneSociale);
+		
+		if (!listaClienti.isEmpty()) {
+			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+	}
 
 }

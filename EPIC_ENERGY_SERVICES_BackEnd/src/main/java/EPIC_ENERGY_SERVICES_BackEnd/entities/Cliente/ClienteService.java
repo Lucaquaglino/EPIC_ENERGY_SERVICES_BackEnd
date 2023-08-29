@@ -97,4 +97,15 @@ public class ClienteService {
 			return lista;
 							
 		}
+		
+		//--------------------------------------------------------------------------- filtro parte del nome della ragione sociale
+		public List<Cliente> filterParteRagioneSociale(String parteRagioneSociale){
+									
+			List<Cliente> lista = cr.findAll().stream()
+					.filter(c -> c.getRagioneSociale().contains(parteRagioneSociale))
+					.collect(Collectors.toList());
+									
+			return lista;
+									
+		}
 }
