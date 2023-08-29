@@ -28,8 +28,7 @@ public class UtenteServiceTest {
 
    @Test
     public void testSaveUtente() {
-        NuovoUtentePayload payload = new NuovoUtentePayload("testUsername2", "testNome2", "testCognome2", "test2@email.com", "testPassword2", Ruolo.ADMIN);
-        
+        NuovoUtentePayload payload = new NuovoUtentePayload("testUsername3", "testNome3", "testCognome3", "test3@email.com", "testPassword3", Ruolo.ADMIN);
         Utente newUtente = utenteService.save(payload);
         assertNotNull(newUtente);
         assertEquals(payload.getUsername(), newUtente.getUsername());
@@ -44,7 +43,7 @@ public class UtenteServiceTest {
     
     @Test
     public void testFindById() {
-    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305");
+    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305"); //bisogna recuperare un altro id dal db;
         Utente user = utenteService.findById(userId);
         assertNotNull(user);
         assertEquals(userId, user.getId());
@@ -52,7 +51,7 @@ public class UtenteServiceTest {
 
     @Test
     public void testUpdateUser() {
-    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305");
+    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305"); //bisogna recuperare un altro id dal db;
         NuovoUtentePayload payload = new NuovoUtentePayload("testUsername3", "testNome3", "testCognome3", "test3@email.com", "testPassword3", Ruolo.ADMIN);
         Utente updatedUser = utenteService.findByIdAndUpdate(userId, payload);
         assertNotNull(updatedUser);
@@ -61,7 +60,7 @@ public class UtenteServiceTest {
 
     @Test
     public void testDeleteUser() {
-    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305");
+    	UUID userId = UUID.fromString("59aecd57-a2a4-45e5-9e7f-71433a4c5305"); //bisogna recuperare un altro id dal db;
         utenteService.findByIdAndDelete(userId);
         
     }
