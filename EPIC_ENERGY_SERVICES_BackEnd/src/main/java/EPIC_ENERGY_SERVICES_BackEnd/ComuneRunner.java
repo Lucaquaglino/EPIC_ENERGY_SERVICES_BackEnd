@@ -1,10 +1,13 @@
 package EPIC_ENERGY_SERVICES_BackEnd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -17,7 +20,7 @@ import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.Provincia;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.ProvinciaService;
 
 @Component
-@Order(1)
+@Order(2)
 public class ComuneRunner implements CommandLineRunner {
 
 	@Autowired
@@ -36,25 +39,33 @@ public class ComuneRunner implements CommandLineRunner {
 		if (comuniDb.isEmpty()) {
 			try {
 				File csvFile = new File(csvFilePath);
-				Scanner scanner = new Scanner(csvFile);
+				FileReader fileReader = new FileReader(csvFile);
 
-				while (scanner.hasNextLine()) {
-					String line = scanner.nextLine();
-					String[] values = line.split(";");
-					if (values.length >= 4) {
-						String codiceProvincia = values[0];
-						String codiceComune = values[1];
-						String nomeComune = values[2];
-						String provinciaStr = values[3];
-						Provincia provincia = provinciaService.findById(provinciaStr);
+				CSVParser csvParser = CSVFormat.DEFAULT.withDelimiter(';').parse(fileReader);
+				List<CSVRecord> records = csvParser.getRecords();
+
+				System.out.println("numero righe csv: " + records.size());
+
+				for (CSVRecord record : records) {
+					if (record.size() >= 4) {
+						String codiceProvincia = record.get(0);
+						String codiceComune = record.get(1);
+						String nomeComune = record.get(2);
+						String provinciaStr = record.get(3);
+
+						Provincia provincia = provinciaService.findByName(provinciaStr);
 
 						comuneService.create(codiceProvincia, codiceComune, nomeComune, provincia);
 					}
+
 				}
-				scanner.close();
-			} catch (FileNotFoundException e) {
+
+				csvParser.close();
+
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
 }

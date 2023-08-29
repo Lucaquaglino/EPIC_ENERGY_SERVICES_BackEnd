@@ -5,7 +5,6 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
@@ -17,7 +16,7 @@ import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.IndirizzoRepository;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.IndirizzoService;
 
 @Component
-@Order(3)
+
 public class IndirizzoRunner implements CommandLineRunner {
 
 	@Autowired

@@ -1,6 +1,9 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.provincia;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class Provincia {
 
 	@Id
+	@GeneratedValue
+	private UUID id;
 	private String provincia;
 	private String sigla;
 	private String regione;
