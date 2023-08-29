@@ -27,7 +27,7 @@ public class FatturaService {
 
 	//To add Cliente, body.getCliente
 	public Fattura create(Fattura body) {
-		Fattura newFattura = new Fattura(null, body.getAnno(), null, body.getImporto(), 0, body.getStatoFattura());
+		Fattura newFattura = new Fattura( body.getAnno(), body.getData(), body.getImporto(), body.getStatoFattura());
 		return fatturaRepo.save(newFattura);
 	}
 
