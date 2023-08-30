@@ -85,9 +85,9 @@ public class FatturaService {
 	
 	//--------------------------------------------------------------------------- filtro per cliente
 	public Page<Fattura> filterByCliente(String ragioneSociale, int page, int pageSize) {
-		UUID clienteId = cr.findByRagioneSociale(ragioneSociale).get().getId_cliente();
+		UUID clienteId = cr.findByRagioneSociale(ragioneSociale).get().getIdCliente();
         Pageable pageable = PageRequest.of(page, pageSize);
-        return fr.findByClienteId(clienteId, pageable);
+        return fr.findByCliente(clienteId, pageable);
     }
 
 	//--------------------------------------------------------------------------- filtro per stato fattura

@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue
-	private UUID id_cliente;
+	private UUID idCliente;
 	
 	//-------------------------------- dati cliente (azienda)
 	private String ragioneSociale;
@@ -56,6 +57,10 @@ public class Cliente {
 	final private List<Fattura> fatture = new ArrayList<Fattura>();
 	
 	//-------------------------------- collegamento con indirizzo
-	@OneToMany
-	final private List<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
+	@OneToOne
+	private Indirizzo indirizzoUno;
+	
+	@Builder.Default
+	@OneToOne
+	private Indirizzo indirizzoDue = null;
  }

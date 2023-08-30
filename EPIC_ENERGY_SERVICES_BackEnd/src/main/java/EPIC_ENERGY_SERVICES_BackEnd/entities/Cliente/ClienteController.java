@@ -59,13 +59,13 @@ public class ClienteController {
 	}
 
 	//--------------------------------------------------------------------------- filtro ultimo inserimento
-	@GetMapping("/filter/ultimoInserimento")
+	@GetMapping("/filter/ultimoContatto")
 	public Page<Cliente> filterUltimoInserimento(
-			@RequestParam LocalDate ultimoInserimento,
+			@RequestParam LocalDate ultimoContatto,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int pageSize
     ) {
-		return cs.filterUltimoInserimento(ultimoInserimento, page, pageSize);
+		return cs.filterUltimoContatto(ultimoContatto, page, pageSize);
 	}
 
 	//--------------------------------------------------------------------------- filtro parte ragione sociale

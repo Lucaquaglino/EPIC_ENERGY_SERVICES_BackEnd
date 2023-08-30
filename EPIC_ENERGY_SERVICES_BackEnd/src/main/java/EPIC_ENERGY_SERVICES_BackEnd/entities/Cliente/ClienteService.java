@@ -1,8 +1,6 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +25,7 @@ public class ClienteService {
 				throw new Error("L'email è già stata utilizzata");
 			});
 			
-			List<String> indirizzi = new ArrayList<String>();
-			
-			indirizzi.add(body.getIndirizzoUno());
-			indirizzi.add(body.getIndirizzoDue());
-			
+						
 			Cliente newCliente = Cliente.builder()
 					.ragioneSociale(body.getRagioneSociale())
 					.partitaIva(body.getPartitaIva())
@@ -78,9 +72,9 @@ public class ClienteService {
 	    }
 		
 		//--------------------------------------------------------------------------- filtro data ultimo contatto
-		public Page<Cliente> filterUltimoInserimento(LocalDate ultimoInserimento, int page, int pageSize) {
+		public Page<Cliente> filterUltimoContatto(LocalDate ultimoContatto, int page, int pageSize) {
 	        Pageable pageable = PageRequest.of(page, pageSize);
-	        return cr.findByUltimoInserimento(ultimoInserimento, pageable);
+	        return cr.findByUltimoContatto(ultimoContatto, pageable);
 	    }
 		
 		//--------------------------------------------------------------------------- filtro parte del nome della ragione sociale

@@ -15,8 +15,6 @@ public class ClientePayload {
 	private String emailCliente;
 	private String pec;
 	private int telefonoCliente;
-	private String indirizzoUno;
-	private String indirizzoDue;
 	private TIPO_CLIENTE tipoCliente;
 		
 	//-------------------------------- dati contatto
@@ -25,4 +23,5 @@ public class ClientePayload {
 	private String emailContatto;
 	private int telefonoContatto;
 	
+	//-------------------------------- dati contatto
 }
