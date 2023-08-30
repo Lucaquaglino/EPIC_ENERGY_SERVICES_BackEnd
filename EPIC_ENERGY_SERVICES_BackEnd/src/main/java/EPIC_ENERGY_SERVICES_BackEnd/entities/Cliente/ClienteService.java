@@ -20,7 +20,7 @@ public class ClienteService {
 		//--------------------------------------------------------------------------- creazione cliente
 		public Cliente creaCliente(ClientePayload body) {
 			
-			//---------------------------------------------------------------------------check se il cliente già esiste tramite la pec
+			// check se il cliente già esiste tramite la pec
 			cr.findByPec(body.getPec()).ifPresent(cliente -> {
 				throw new Error("L'email è già stata utilizzata");
 			});
@@ -39,7 +39,6 @@ public class ClienteService {
 					.telefonoContatto(body.getTelefonoContatto())
 					.dataInserimento(LocalDate.now())
 					.ultimoContatto(LocalDate.now())
-					.indirizzoUno()
 					.build();
 			
 			return cr.save(newCliente);
