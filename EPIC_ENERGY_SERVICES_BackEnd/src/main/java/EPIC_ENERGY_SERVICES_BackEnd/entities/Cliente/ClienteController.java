@@ -41,7 +41,7 @@ public class ClienteController {
 		return cs.findAll(page, order);
 	}
 
-	//--------------------------------------------------------------------------- ordinamenti
+	//--------------------------------------------------------------------------- filtro fattura annuale
 	@GetMapping("/filter/fatturatoAnnuale")
 	public Page<Cliente> filterFattuartoAnnuale(
             @RequestParam double fatturatoAnnuale,
@@ -51,17 +51,14 @@ public class ClienteController {
         return cs.filterFatturatoAnnuale(fatturatoAnnuale, page, pageSize);
     }
 
-	@GetMapping("/{dataInserimento}")
-	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento) {
-
-		List<Cliente> listaClienti = cs.filterDataInserimento(dataInserimento);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro data inserimento
+	@GetMapping("/filter/dataInserimento")
+	public Page<Cliente> filterDataInserimento(
+			@RequestParam LocalDate dataInserimento,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterDataInserimento(dataInserimento, page, pageSize);
 	}
 
 	@GetMapping("/{dataUltimoContatto}")
