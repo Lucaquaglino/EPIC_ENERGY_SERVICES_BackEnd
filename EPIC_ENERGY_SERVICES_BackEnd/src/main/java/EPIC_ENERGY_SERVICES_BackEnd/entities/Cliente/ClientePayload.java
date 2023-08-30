@@ -23,7 +23,6 @@ public class ClientePayload {
 	private String emailContatto;
 	private int telefonoContatto;
 	
-	private String indirizzoUno;
-	private String indirizzoDue;
+	//-------------------------------- dati contatto
 	
 }
