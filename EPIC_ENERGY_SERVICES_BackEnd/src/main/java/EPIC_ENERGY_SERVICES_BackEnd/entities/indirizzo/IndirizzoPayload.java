@@ -7,6 +7,6 @@ public class IndirizzoPayload {
 	private String via;
 	private String civico;
 	private String localita;
-	private int cap;
+	private String cap;
 	private String nomeComune;
 }

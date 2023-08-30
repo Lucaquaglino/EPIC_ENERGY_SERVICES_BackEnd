@@ -1,5 +1,7 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,7 @@ public class ClientePayload {
 	private String emailCliente;
 	private String pec;
 	private int telefonoCliente;
+	@Enumerated(EnumType.STRING)
 	private TIPO_CLIENTE tipoCliente;
 		
 	//-------------------------------- dati contatto
@@ -27,7 +30,7 @@ public class ClientePayload {
 	private String via;
 	private String civico;
 	private String localita;
-	private int cap;
+	private String cap;
 	
 	//-------------------------------- nome comune
 	private String comune;

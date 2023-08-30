@@ -22,7 +22,7 @@ public class IndirizzoService {
 	@Autowired
 	private ComuneService comuneService;
 
-	public Indirizzo create(String via, String civico, String localita, int cap, String comune)
+	public Indirizzo create(String via, String civico, String localita, String cap, String comune)
 			throws NotFoundException {
 		Comune c = comuneService.findByName(comune);
 		Indirizzo i = new Indirizzo(via, civico, localita, cap, c);

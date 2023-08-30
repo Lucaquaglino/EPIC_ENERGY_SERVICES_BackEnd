@@ -41,7 +41,7 @@ public class IndirizzoRunner implements CommandLineRunner {
 				String via = faker.address().streetAddress();
 				String civico = faker.address().streetAddressNumber();
 				String localita = faker.address().cityName();
-				int cap = Integer.parseInt(faker.address().zipCode());
+				String cap = faker.address().zipCode();
 
 				int comuneIndex = faker.random().nextInt(comuniSize); // Scelta casuale di un comune
 				Comune c = comuni.get(comuneIndex);
