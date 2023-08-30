@@ -44,9 +44,9 @@ public class FatturaService {
 	public List<Fattura> find() {
 		return fr.findAll();
 	}
-
-	public Page<Fattura> find(int page, int size, String sort) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+	
+	public Page<Fattura> findAll(int page, String sort) {
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
 		return fr.findAll(pageable);
 	}
 
@@ -117,8 +117,8 @@ public class FatturaService {
 	
 //	----------------------------------- FILTERS ----------------------------------
 	
-	public List<Fattura> filterByCliente(Cliente cliente) {
-		return fr.findAll().stream().filter(f -> f.getCliente().equals(cliente)).collect(Collectors.toList());
+	public List<Fattura> filterByClienteId(UUID clienteId) {
+		return fr.findAll().stream().filter(f -> f.getCliente().getId_cliente().equals(clienteId)).collect(Collectors.toList());
 	}
 	
 	public List<Fattura> filterByStato(StatoFattura stato) {
