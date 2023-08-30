@@ -44,7 +44,8 @@ public class ClienteService {
 					body.getCap(),
 					body.getComune()
 			);
-									
+			
+			// crea cliente
 			Cliente newCliente = Cliente.builder()
 					.ragioneSociale(body.getRagioneSociale())
 					.partitaIva(body.getPartitaIva())
