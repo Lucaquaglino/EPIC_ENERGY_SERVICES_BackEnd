@@ -38,7 +38,6 @@ public class ClienteService {
 					.emailCliente(body.getEmailCliente())
 					.pec(body.getPec())
 					.telefonoCliente(body.getTelefonoCliente())
-					.indirizzi(indirizzi)
 					.tipoCliente(body.getTipoCliente())
 					.nomeContatto(body.getNomeContatto())
 					.cognomeContatto(body.getCognomeContatto())

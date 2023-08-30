@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import EPIC_ENERGY_SERVICES_BackEnd.entities.fattura.Fattura;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.Indirizzo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,8 +35,7 @@ public class Cliente {
 	private String emailCliente;
 	private String pec;
 	private int telefonoCliente;
-	@OneToMany
-	private List<String> indirizzi;
+	
 	@Enumerated(EnumType.STRING)
 	private TIPO_CLIENTE tipoCliente;
 	
@@ -54,4 +54,9 @@ public class Cliente {
 	//-------------------------------- collegamento con fatture
 	@OneToMany
 	final private List<Fattura> fatture = new ArrayList<Fattura>();
+	
+	//-------------------------------- collegamento con indirizzo
+	@Builder.Default
+	@OneToMany
+	private List<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
  }
