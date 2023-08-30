@@ -3,6 +3,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,21 +22,32 @@ import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
 public class FatturaService {
 
 	@Autowired
-	private final FatturaRepository fr;
+	FatturaRepository fr;
 	
 	@Autowired
-	private final ClienteRepository cr;
+	ClienteRepository cr;
 
-	private FatturaService(FatturaRepository fr, ClienteRepository cr) {
-		super();
-		this.fr = fr;
-		this.cr = cr;
-	}
-
+	//--------------------------------------------------------------------------- creazione cliente
 	public Fattura creaFattura(FatturaPayload body) {
+		
 		Cliente clienteId = cr.findById(body.getCliente().getId_cliente()).orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 		
-		Fattura newFattura = new Fattura( body.getAnno(), body.getData(), body.getImporto(), body.getStatoFattura(), clienteId);
+		Optional<Fattura> fatturaMax = fr.findAll().stream()
+				.max((f1, f2) -> Double.compare(f1.getNumeroFattura(), f2.getNumeroFattura()));
+		
+		double f = 0;
+		
+		if(fatturaMax.isPresent())
+			f = fatturaMax.get().getNumeroFattura() + 1;
+		
+		Fattura newFattura = Fattura.builder()
+				.anno(body.getAnno())
+				.data(body.getData())
+				.importo(body.getImporto())
+				.numeroFattura(f)
+				.statoFattura(body.getStatoFattura())
+				.cliente(clienteId)
+				.build();
 		
 		newFattura.setCliente(clienteId);
 		return fr.save(newFattura);
