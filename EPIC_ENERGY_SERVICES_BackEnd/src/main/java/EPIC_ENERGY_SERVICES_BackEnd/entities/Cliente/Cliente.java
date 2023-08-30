@@ -62,9 +62,8 @@ public class Cliente {
 	
 	//-------------------------------- collegamento con indirizzo
 	@OneToOne
-	private Indirizzo indirizzoUno;
+	private Indirizzo indirizzoSedeLegale;
 	
-	@Builder.Default
 	@OneToOne
-	private Indirizzo indirizzoDue = null;
+	private Indirizzo indirizzoSedeOperativa;
  }

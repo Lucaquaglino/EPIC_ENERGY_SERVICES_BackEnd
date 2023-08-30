@@ -26,12 +26,21 @@ public class ClientePayload {
 	private String emailContatto;
 	private int telefonoContatto;
 	
-	//-------------------------------- dati indirizzo
-	private String via;
-	private String civico;
-	private String localita;
-	private String cap;
+	//-------------------------------- dati indirizzo uno
+	private String viaUno;
+	private String civicoUno;
+	private String localitaUno;
+	private String capUno;
 	
-	//-------------------------------- nome comune
-	private String comune;
+	//-------------------------------- nome comune uno
+	private String comuneUno;
+	
+	//-------------------------------- dati indirizzo uno
+	private String viaDue;
+	private String civicoDue;
+	private String localitaDue;
+	private String capDue;
+	
+	//-------------------------------- nome comune due
+	private String comuneDue;
 }
