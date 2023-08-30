@@ -128,26 +128,30 @@ public class FatturaService {
 		return listaFatture;
 	}
 	
-//	----------------------------------- FILTERS ----------------------------------
-	
-	public List<Fattura> filterByClienteId(UUID clienteId) {
-		return fr.findAll().stream().filter(f -> f.getCliente().getId_cliente().equals(clienteId)).collect(Collectors.toList());
-	}
-	
-	public List<Fattura> filterByStato(StatoFattura stato) {
-		return fr.findAll().stream().filter(f -> f.getStatoFattura().equals(stato)).collect(Collectors.toList());
-	}
-	
-	public List<Fattura> filterByData(LocalDate data) {
-		return fr.findAll().stream().filter(f -> f.getData().equals(data)).collect(Collectors.toList());
-	}
-	
-	public List<Fattura> filterByAnno(int anno) {
-		return fr.findAll().stream().filter(f -> f.getAnno() == anno).collect(Collectors.toList());
-	}
-	
-	public List<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto) {
-		return fr.findAll().stream().filter(f -> f.getImporto().compareTo(minImporto) >= 0 && f.getImporto().compareTo(maxImporto) <= 0).collect(Collectors.toList());
-	}
+	//--------------------------------------------------------------------------- filtro per cliente
+	public Page<Fattura> filterByCliente(String ragioneSociale, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return fr.findByCliente(ragioneSociale, pageable);
+    }
+
+    public Page<Fattura> filterByStato(StatoFattura stato, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return fr.findByStatoFattura(stato, pageable);
+    }
+
+    public Page<Fattura> filterByData(LocalDate data, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return fr.findByData(data, pageable);
+    }
+
+    public Page<Fattura> filterByAnno(int anno, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return fr.findByAnno(anno, pageable);
+    }
+
+    public Page<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return fr.findByImportoBetsween(minImporto, maxImporto, pageable);
+    }
 
 }
