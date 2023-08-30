@@ -26,7 +26,7 @@ public class Fattura {
 	private int anno;
 	private LocalDate data;
 	private BigDecimal importo;
-	final private double numeroFattura = 0;
+	private double numeroFattura;
 	private StatoFattura statoFattura;
 	
 	@ManyToOne
