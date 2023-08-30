@@ -136,7 +136,7 @@ public class FatturaService {
     }
 
 	//--------------------------------------------------------------------------- filtro per stato fattura
-    public Page<Fattura> filterByStatoFattura(String stato, int page, int pageSize) {
+    public Page<Fattura> filterByStatoFattura(StatoFattura stato, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByStatoFattura(stato, pageable);
     }
@@ -156,7 +156,7 @@ public class FatturaService {
   //--------------------------------------------------------------------------- filtro per importo
     public Page<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        return fr.findByImportoBetsween(minImporto, maxImporto, pageable);
+        return fr.findByImportoBetween(minImporto, maxImporto, pageable);
     }
 
 }

@@ -1,15 +1,12 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,32 +50,31 @@ public class FatturaController {
 	//--------------------------------------------------------------------------- filtro per stato fattura
 	@GetMapping("/filter/statoFattura")
 	public Page<Fattura> filterByStatoFattura(
-			@RequestParam String statoFattura,
+			@RequestParam StatoFattura statoFattura,
 	        @RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "10") int pageSize
 	) {
-		return fs.filterByCliente(statoFattura, page, pageSize);
+		return fs.filterByStatoFattura(statoFattura, page, pageSize);
 	}
 	
-	@GetMapping("/filterByData/{data}")
-	public ResponseEntity<List<Fattura>> getFilterData(@PathVariable LocalDate data) {
-		List<Fattura> listaFatture = fs.filterByData(data);
-		
-		if(listaFatture.isEmpty()) {
-			return new ResponseEntity<>(listaFatture, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+	//--------------------------------------------------------------------------- filtro per data
+	@GetMapping("/filter/data")
+	public Page<Fattura> filterByData(
+			@RequestParam LocalDate data,
+		    @RequestParam(defaultValue = "0") int page,
+		    @RequestParam(defaultValue = "10") int pageSize
+	) {
+		return fs.filterByData(data, page, pageSize);
 	}
 	
-	@GetMapping("/filterByAnno/{anno}")
-	public ResponseEntity<List<Fattura>> getFilterAnno(@PathVariable int anno) {
-		List<Fattura> listaFatture = fs.filterByAnno(anno);
-		
-		if(listaFatture.isEmpty()) {
-			return new ResponseEntity<>(listaFatture, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+	//--------------------------------------------------------------------------- filtro per range importi
+	@GetMapping("/filter/importRange")
+	public Page<Fattura> filterByImportRange(
+			@RequestParam BigDecimal minImporto,
+			@RequestParam BigDecimal maxImporto,
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int pageSize
+	) {
+		return fs.filterByImportRange(minImporto, maxImporto, page, pageSize);
 	}
 }
