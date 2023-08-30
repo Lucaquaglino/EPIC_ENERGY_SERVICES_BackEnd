@@ -61,30 +61,24 @@ public class ClienteController {
 		return cs.filterDataInserimento(dataInserimento, page, pageSize);
 	}
 
-	@GetMapping("/{dataUltimoContatto}")
-	public ResponseEntity<List<Cliente>> getFiltroDataUltimoContatto(@PathVariable LocalDate dataUltimoContatto) {
-
-		List<Cliente> listaClienti = cs.filterDataUltimoContatto(dataUltimoContatto);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro ultimo inserimento
+	@GetMapping("/filter/ultimoInserimento")
+	public Page<Cliente> filterUltimoInserimento(
+			@RequestParam LocalDate ultimoInserimento,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterUltimoInserimento(ultimoInserimento, page, pageSize);
 	}
 
-	@GetMapping("/{parteRagioneSociale}")
-	public ResponseEntity<List<Cliente>> getFiltroParteRagioneSociale(@PathVariable String parteRagioneSociale) {
-
-		List<Cliente> listaClienti = cs.filterParteRagioneSociale(parteRagioneSociale);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro parte ragione sociale
+	@GetMapping("/filter/ragioneSociale")
+	public Page<Cliente> filterRagioneSociale(
+			@RequestParam String ragioenSociale,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterRagioneSociale(ragioenSociale, page, pageSize);
 	}
 
 }
