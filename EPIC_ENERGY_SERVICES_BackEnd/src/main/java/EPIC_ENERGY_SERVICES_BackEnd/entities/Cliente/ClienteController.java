@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.Provincia;
 
 @RestController
 @RequestMapping("/clienti")
@@ -30,56 +34,10 @@ public class ClienteController {
 		return clienteCreato;
 	}
 
-	@GetMapping("/orderByRagioneSociale")
-	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale() {
-
-		List<Cliente> listaClienti = cs.orderByRagioneSociale();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/orderByFatturatoAnnuale")
-	public ResponseEntity<List<Cliente>> getOrderByFatturatoAnnuale() {
-
-		List<Cliente> listaClienti = cs.orderByFatturatoAnnuale();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/orderByDataInserimento")
-	public ResponseEntity<List<Cliente>> getOrderByDataInserimento() {
-
-		List<Cliente> listaClienti = cs.orderByDataInserimento();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/orderByUltimoContatto")
-	public ResponseEntity<List<Cliente>> getOrderByUltimoContatto() {
-
-		List<Cliente> listaClienti = cs.orderByUltimoContatto();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	@GetMapping("")
+	public Page<Cliente> findAll(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "ragioneSociale") String order) {
+		return cs.findAll(page, order);
 	}
 
 	@GetMapping("/{fatturatoAnnuale}")
