@@ -1,5 +1,6 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,5 +15,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID>{
 	Optional<Cliente> findByPec(String pec);
 	
 	Page<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale, Pageable pageable);
+	
+	Page<Cliente> findByDataInserimento(LocalDate dataInserimento, Pageable pageable);
 	
 }
