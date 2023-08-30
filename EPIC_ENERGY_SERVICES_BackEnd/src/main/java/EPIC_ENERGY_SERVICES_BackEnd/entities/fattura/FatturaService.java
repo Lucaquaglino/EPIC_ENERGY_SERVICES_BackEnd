@@ -33,7 +33,7 @@ public class FatturaService {
 	public Fattura creaFattura(FatturaPayload body) {
 		
 		Cliente cliente = cr.findById(body.getId_cliente())
-				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
+				.orElseThrow(() -> new NotFoundException("Cliente non trovato"));
 		
 		Optional<Fattura> fatturaMax = fr.findAll().stream()
 				.max((f1, f2) -> Double.compare(f1.getNumeroFattura(), f2.getNumeroFattura()));

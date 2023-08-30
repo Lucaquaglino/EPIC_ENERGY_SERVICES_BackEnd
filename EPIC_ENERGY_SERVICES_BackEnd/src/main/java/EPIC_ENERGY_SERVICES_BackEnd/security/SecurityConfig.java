@@ -28,15 +28,15 @@ public class SecurityConfig {
 
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/provincia/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comune/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/indirizzo/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").permitAll());
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/provincia/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comune/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/indirizzo/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();
 	}
 
