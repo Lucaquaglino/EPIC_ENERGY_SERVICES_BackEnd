@@ -2,12 +2,15 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class ClienteService {
@@ -18,7 +21,7 @@ public class ClienteService {
 		//--------------------------------------------------------------------------- creazione cliente
 		public Cliente creaCliente(ClientePayload body) {
 			
-			//check se il cliente già esiste tramite la pec
+			//---------------------------------------------------------------------------check se il cliente già esiste tramite la pec
 			cr.findByPec(body.getPec()).ifPresent(cliente -> {
 				throw new Error("L'email è già stata utilizzata");
 			});
@@ -48,87 +51,33 @@ public class ClienteService {
 			
 		}
 		
-		//--------------------------------------------------------------------------- ordinamento ragione sociale
-		public List<Cliente> orderByRagioneSociale(){	
-			
-			List<Cliente> result = cr.findAll().stream()
-					.sorted(Comparator.comparing(Cliente::getRagioneSociale))
-					.collect(Collectors.toList());
-			
-			return result;
-		}
-		
-		//--------------------------------------------------------------------------- ordinamento fatturazione annuale
-		public List<Cliente> orderByFatturatoAnnuale(){		
-						
-			List<Cliente> result = cr.findAll().stream()
-					.sorted((c1, c2) -> Double.compare(c1.getFatturatoAnnuale(), c2.getFatturatoAnnuale()))
-					.collect(Collectors.toList());
-			
-			return result;
-		}
-		
-		//--------------------------------------------------------------------------- ordinamento per data di inserimento
-		public List<Cliente> orderByDataInserimento() { 
-			
-	        List<Cliente> result = cr.findAll().stream()
-	            .sorted(Comparator.comparing(Cliente::getDataInserimento))
-	            .collect(Collectors.toList());
-	        
-	        return result;
-	    }
-		
-		//--------------------------------------------------------------------------- ordinamento per data di ultimo contatto
-		public List<Cliente> orderByUltimoContatto() { 
-					
-			List<Cliente> result = cr.findAll().stream()
-					.sorted(Comparator.comparing(Cliente::getUltimoContatto))
-					.collect(Collectors.toList());
-			        
-			return result;
+		//--------------------------------------------------------------------------- ordinamenti
+		public Page<Cliente> findAll(int page, String ordinamento) {
+			Pageable pagina = PageRequest.of(page, 10, Sort.by(ordinamento));
+			return cr.findAll(pagina);
 		}
 		
 		//--------------------------------------------------------------------------- filtro fatturazione annuale
-		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
-			
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getFatturatoAnnuale()==fatturatoAnnuale)
-					.collect(Collectors.toList());
-			
-			return lista;
-			
-		}
+		public Page<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByFatturatoAnnuale(fatturatoAnnuale, pageable);
+	    }
 		
 		//--------------------------------------------------------------------------- filtro data di inserimento
-		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){
-					
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getDataInserimento().equals(dataInserimento))
-					.collect(Collectors.toList());
-					
-			return lista;
-					
-		}
+		public Page<Cliente> filterDataInserimento(LocalDate dataInserimento, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByDataInserimento(dataInserimento, pageable);
+	    }
 		
 		//--------------------------------------------------------------------------- filtro data ultimo contatto
-		public List<Cliente> filterDataUltimoContatto(LocalDate dataUltimoContatto){
-							
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getUltimoContatto().equals(dataUltimoContatto))
-					.collect(Collectors.toList());
-							
-			return lista;
-							
-		}
+		public Page<Cliente> filterUltimoInserimento(LocalDate ultimoInserimento, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByUltimoInserimento(ultimoInserimento, pageable);
+	    }
 		
 		//--------------------------------------------------------------------------- filtro parte del nome della ragione sociale
-		public List<Cliente> filterParteRagioneSociale(String parteRagioneSociale){
-									
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getRagioneSociale().contains(parteRagioneSociale))
-					.collect(Collectors.toList());
-									
-			return lista;
-									
-		}
+		public Page<Cliente> filterRagioneSociale(String parteRagioneSociale, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
+	    }
 }

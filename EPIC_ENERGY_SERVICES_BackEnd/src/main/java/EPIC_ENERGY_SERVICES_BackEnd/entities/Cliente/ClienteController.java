@@ -1,16 +1,15 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,108 +29,53 @@ public class ClienteController {
 		return clienteCreato;
 	}
 
-	@GetMapping("/orderByRagioneSociale")
-	public ResponseEntity<List<Cliente>> getOrderByRagioneSociale() {
-
-		List<Cliente> listaClienti = cs.orderByRagioneSociale();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- ordinamenti
+	@GetMapping("")
+	public Page<Cliente> findAll(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "ragioneSociale") String order
+	) {
+		return cs.findAll(page, order);
 	}
 
-	@GetMapping("/orderByFatturatoAnnuale")
-	public ResponseEntity<List<Cliente>> getOrderByFatturatoAnnuale() {
+	//--------------------------------------------------------------------------- filtro fattura annuale
+	@GetMapping("/filter/fatturatoAnnuale")
+	public Page<Cliente> filterFattuartoAnnuale(
+            @RequestParam double fatturatoAnnuale,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return cs.filterFatturatoAnnuale(fatturatoAnnuale, page, pageSize);
+    }
 
-		List<Cliente> listaClienti = cs.orderByFatturatoAnnuale();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro data inserimento
+	@GetMapping("/filter/dataInserimento")
+	public Page<Cliente> filterDataInserimento(
+			@RequestParam LocalDate dataInserimento,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterDataInserimento(dataInserimento, page, pageSize);
 	}
 
-	@GetMapping("/orderByDataInserimento")
-	public ResponseEntity<List<Cliente>> getOrderByDataInserimento() {
-
-		List<Cliente> listaClienti = cs.orderByDataInserimento();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro ultimo inserimento
+	@GetMapping("/filter/ultimoInserimento")
+	public Page<Cliente> filterUltimoInserimento(
+			@RequestParam LocalDate ultimoInserimento,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterUltimoInserimento(ultimoInserimento, page, pageSize);
 	}
 
-	@GetMapping("/orderByUltimoContatto")
-	public ResponseEntity<List<Cliente>> getOrderByUltimoContatto() {
-
-		List<Cliente> listaClienti = cs.orderByUltimoContatto();
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/{fatturatoAnnuale}")
-	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale) {
-
-		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturatoAnnuale);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/{dataInserimento}")
-	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento) {
-
-		List<Cliente> listaClienti = cs.filterDataInserimento(dataInserimento);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/{dataUltimoContatto}")
-	public ResponseEntity<List<Cliente>> getFiltroDataUltimoContatto(@PathVariable LocalDate dataUltimoContatto) {
-
-		List<Cliente> listaClienti = cs.filterDataUltimoContatto(dataUltimoContatto);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@GetMapping("/{parteRagioneSociale}")
-	public ResponseEntity<List<Cliente>> getFiltroParteRagioneSociale(@PathVariable String parteRagioneSociale) {
-
-		List<Cliente> listaClienti = cs.filterParteRagioneSociale(parteRagioneSociale);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	//--------------------------------------------------------------------------- filtro parte ragione sociale
+	@GetMapping("/filter/ragioneSociale")
+	public Page<Cliente> filterRagioneSociale(
+			@RequestParam String parteRagioneSociale,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+		return cs.filterRagioneSociale(parteRagioneSociale, page, pageSize);
 	}
 
 }
