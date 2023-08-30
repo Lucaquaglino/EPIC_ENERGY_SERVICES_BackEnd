@@ -65,15 +65,10 @@ public class ClienteService {
 	    }
 		
 		//--------------------------------------------------------------------------- filtro data di inserimento
-		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){
-					
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getDataInserimento().equals(dataInserimento))
-					.collect(Collectors.toList());
-					
-			return lista;
-					
-		}
+		public Page<Cliente> filterDataInserimento(LocalDate dataInserimento, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByDataInserimento(dataInserimento, pageable);
+	    }
 		
 		//--------------------------------------------------------------------------- filtro data ultimo contatto
 		public List<Cliente> filterDataUltimoContatto(LocalDate dataUltimoContatto){

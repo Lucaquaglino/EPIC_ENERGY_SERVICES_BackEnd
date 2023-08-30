@@ -41,7 +41,8 @@ public class ClienteController {
 		return cs.findAll(page, order);
 	}
 
-	@GetMapping("/filter")
+	//--------------------------------------------------------------------------- ordinamenti
+	@GetMapping("/filter/fatturatoAnnuale")
 	public Page<Cliente> filterFattuartoAnnuale(
             @RequestParam double fatturatoAnnuale,
             @RequestParam(defaultValue = "0") int page,
