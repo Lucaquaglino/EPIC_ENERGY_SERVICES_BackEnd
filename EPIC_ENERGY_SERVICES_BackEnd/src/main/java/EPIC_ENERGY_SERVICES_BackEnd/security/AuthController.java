@@ -2,6 +2,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,5 +50,12 @@ public class AuthController {
 		} else {
 			throw new UnauthorizedException("Credenziali non valide");
 		}
+	}
+
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout() {
+		System.out.println("Logout effettuato con successo");
+		return ResponseEntity.ok("Logout effettuato con successo");
+
 	}
 }
