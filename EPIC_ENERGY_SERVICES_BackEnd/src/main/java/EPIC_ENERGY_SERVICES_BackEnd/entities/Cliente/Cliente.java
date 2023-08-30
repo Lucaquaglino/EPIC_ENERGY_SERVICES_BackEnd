@@ -47,8 +47,9 @@ public class Cliente {
 	
 	//-------------------------------- attributi inizializzati alla crazione
 	private LocalDate dataInserimento;
-	private LocalDate ultimoContatto; 
-	final private double fatturatoAnnuale = 0;
+	private LocalDate ultimoContatto;
+	@Builder.Default
+	private double fatturatoAnnuale = 0;
 	
 	//-------------------------------- collegamento con fatture
 	@OneToMany

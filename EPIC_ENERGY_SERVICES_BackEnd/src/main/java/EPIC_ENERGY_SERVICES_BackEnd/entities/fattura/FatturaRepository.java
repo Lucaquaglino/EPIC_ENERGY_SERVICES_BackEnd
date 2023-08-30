@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -18,6 +17,6 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
     Page<Fattura> findByStatoFattura(StatoFattura statoFattura, Pageable pageable);
     Page<Fattura> findByData(LocalDate data, Pageable pageable);
     Page<Fattura> findByAnno(int anno, Pageable pageable);
-    Page<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto, Pageable pageable);
+    Page<Fattura> findByImportoBetween(double minImporto, double maxImporto, Pageable pageable);
 	
 }

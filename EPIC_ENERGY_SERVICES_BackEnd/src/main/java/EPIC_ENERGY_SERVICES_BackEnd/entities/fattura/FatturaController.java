@@ -1,6 +1,5 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +69,8 @@ public class FatturaController {
 	//--------------------------------------------------------------------------- filtro per range importi
 	@GetMapping("/filter/importRange")
 	public Page<Fattura> filterByImportRange(
-			@RequestParam BigDecimal minImporto,
-			@RequestParam BigDecimal maxImporto,
+			@RequestParam double minImporto,
+			@RequestParam double maxImporto,
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int pageSize
 	) {

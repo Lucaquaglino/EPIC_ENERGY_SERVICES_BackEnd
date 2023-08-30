@@ -1,11 +1,9 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteRepository;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteService;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
 
 @Service
@@ -26,11 +25,14 @@ public class FatturaService {
 	
 	@Autowired
 	ClienteRepository cr;
+	
+	@Autowired
+	ClienteService cs;
 
 	//--------------------------------------------------------------------------- creazione cliente
 	public Fattura creaFattura(FatturaPayload body) {
 		
-		Cliente clienteId = cr.findById(body.getCliente().getId_cliente())
+		Cliente cliente = cr.findById(body.getId_cliente())
 				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 		
 		Optional<Fattura> fatturaMax = fr.findAll().stream()
@@ -47,10 +49,12 @@ public class FatturaService {
 				.importo(body.getImporto())
 				.numeroFattura(f)
 				.statoFattura(body.getStatoFattura())
-				.cliente(clienteId)
+				.cliente(cliente)
 				.build();
 		
-		newFattura.setCliente(clienteId);
+		//aggiornamento dati cliente (ultimo contatto e fatturato annuo)
+		cs.findByIdAndUpdateFattura(body.getId_cliente(), body.getImporto());
+		 
 		return fr.save(newFattura);
 	}
 
@@ -79,55 +83,6 @@ public class FatturaService {
 		fr.delete(fatturaTrovata);
 	}
 	
-	public List<Fattura> findByClienteId(UUID idCliente) throws NotFoundException {
-		List<Fattura> listaFatture = fr.findByClienteId(idCliente);
-
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per il cliente con ID:" + idCliente);
-		}
-		return listaFatture;
-	}
-	
-	public List<Fattura> findByStatoFattura(StatoFattura statoFattura) throws NotFoundException {
-		List<Fattura> listaFatture = fr.findByStatoFattura(statoFattura);
-		
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per lo stato" + statoFattura);
-		}
-		return listaFatture;
-	}
-	
-	public List<Fattura> findByData(LocalDate data) throws NotFoundException {
-		List<Fattura> listaFatture = fr.findByData(data);
-		
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per la data" + data);
-		}
-		
-		return listaFatture;
-		
-	}
-	
-	public List<Fattura> findByAnno(int anno) throws NotFoundException {
-		List<Fattura> listaFatture = fr.findByAnno(anno);
-		
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata per l'anno" + anno);
-		}
-		
-		return listaFatture;
-	}
-	
-	public List<Fattura> findByImportoBetween(BigDecimal minImporto, BigDecimal maxImporto) throws NotFoundException {
-		List<Fattura> listaFatture = fr.findByImportoBetween(minImporto, maxImporto);
-		
-		if(listaFatture.isEmpty()) {
-			throw new NotFoundException("Nessuna fattura trovata tra i range dei seguenti importi:" + minImporto + " - " + maxImporto);
-		}
-
-		return listaFatture;
-	}
-	
 	//--------------------------------------------------------------------------- filtro per cliente
 	public Page<Fattura> filterByCliente(String ragioneSociale, int page, int pageSize) {
 		UUID clienteId = cr.findByRagioneSociale(ragioneSociale).get().getId_cliente();
@@ -154,7 +109,7 @@ public class FatturaService {
     }
 
   //--------------------------------------------------------------------------- filtro per importo
-    public Page<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto, int page, int pageSize) {
+    public Page<Fattura> filterByImportRange(double minImporto, double maxImporto, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByImportoBetween(minImporto, maxImporto, pageable);
     }

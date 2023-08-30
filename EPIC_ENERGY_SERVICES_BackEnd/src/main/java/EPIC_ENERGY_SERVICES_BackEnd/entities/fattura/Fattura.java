@@ -1,6 +1,5 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ public class Fattura {
 	private UUID id;
 	private int anno;
 	private LocalDate data;
-	private BigDecimal importo;
+	private double importo;
 	private double numeroFattura;
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;

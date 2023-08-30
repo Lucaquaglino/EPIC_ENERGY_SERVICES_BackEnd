@@ -3,6 +3,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,14 @@ public class ClienteService {
 			
 			return cr.save(newCliente);
 			
+		}
+		
+		//--------------------------------------------------------------------------- modifica cliente a inserimento fattura
+		public Cliente findByIdAndUpdateFattura(UUID id, double importo) {
+			Cliente cliente = cr.findById(id).get();
+			cliente.setUltimoContatto(LocalDate.now());
+			cliente.setFatturatoAnnuale(cliente.getFatturatoAnnuale() + importo);
+			return cr.save(cliente);
 		}
 		
 		//--------------------------------------------------------------------------- ordinamenti
