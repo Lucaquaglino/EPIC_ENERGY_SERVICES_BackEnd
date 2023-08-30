@@ -1,53 +1,54 @@
 package EPIC_ENERGY_SERVICES_BackEnd;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-
-
+import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.Comune;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.ComuneService;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.Indirizzo;
-
+import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.IndirizzoRepository;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.IndirizzoService;
-
-
-
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.Provincia;
 
 @SpringBootTest
-@ActiveProfiles("test") 
-@Transactional 
+@ActiveProfiles("test")
+@Transactional
 public class IndirizzoServiceTest {
 
     @Autowired
     private IndirizzoService indirizzoService;
 
+    @Autowired
+    private IndirizzoRepository indirizzoRepo;
 
+    @Autowired
+    private ComuneService comuneService;
 
-    @Test
-    public void testCreateIndirizzo() throws NotFoundException {
-        String via = "Via Roma";
-        String civico = "12";
-        String localita = "Centro";
-        int cap = 12345;
-        String nomeComune = "Roma";
+    private Indirizzo indirizzoTest;
+    private Comune comuneTest;
 
-        Indirizzo indirizzo = indirizzoService.create(via, civico, localita, cap, nomeComune);
-
-        assertNotNull(indirizzo);
-        assertEquals(via, indirizzo.getVia());
-        assertEquals(civico, indirizzo.getCivico());
-        assertEquals(localita, indirizzo.getLocalita());
-        assertEquals(cap, indirizzo.getCap());
-        assertEquals(nomeComune, indirizzo.getComune().getNomeComune());
+    @BeforeEach
+    public void setUp() {
+        Provincia provinciaTest = new Provincia(); 
+        comuneTest = comuneService.create("CodiceProvincia", "CodiceComune", "NomeComune", provinciaTest);
+        
+        indirizzoTest = new Indirizzo("Via Roma", "10", "Roma", 12345, comuneTest);
+        indirizzoRepo.save(indirizzoTest);
     }
-
-   
+    
+    @Test
+    public void testFindById() throws Exception {
+        Indirizzo foundIndirizzo = indirizzoService.findById(indirizzoTest.getId().toString());
+        assertNotNull(foundIndirizzo);
+        assertEquals(indirizzoTest.getVia(), foundIndirizzo.getVia());
+    }
 
 }

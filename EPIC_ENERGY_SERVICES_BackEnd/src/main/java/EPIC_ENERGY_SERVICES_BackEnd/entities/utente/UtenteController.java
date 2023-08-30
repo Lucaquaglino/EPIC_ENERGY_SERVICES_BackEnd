@@ -40,7 +40,7 @@ public class UtenteController {
 		return utenteService.getUsers();
 	}
 	
-	@GetMapping("")
+	@GetMapping("/paged")
 	public Page<Utente> findAll(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "id") String order) {
 		return utenteService.findAll(page, order);
