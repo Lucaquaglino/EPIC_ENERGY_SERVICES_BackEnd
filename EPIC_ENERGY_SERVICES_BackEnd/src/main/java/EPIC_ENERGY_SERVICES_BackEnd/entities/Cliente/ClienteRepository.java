@@ -14,6 +14,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID>{
 	
 	Optional<Cliente> findByPec(String pec);
 	
+	Optional<Cliente> findByRagioneSociale(String ragioneSociale);
+	
 	Page<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale, Pageable pageable);
 	
 	Page<Cliente> findByDataInserimento(LocalDate dataInserimento, Pageable pageable);
