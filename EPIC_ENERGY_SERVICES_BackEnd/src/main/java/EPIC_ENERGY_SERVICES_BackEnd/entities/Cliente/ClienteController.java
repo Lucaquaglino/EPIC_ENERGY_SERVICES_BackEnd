@@ -3,6 +3,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente salvaCliente(@RequestBody ClientePayload body) {
+	public Cliente salvaCliente(@RequestBody ClientePayload body) throws NotFoundException {
 
 		Cliente clienteCreato = cs.creaCliente(body);
 
