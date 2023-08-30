@@ -24,4 +24,5 @@ public class ClientePayload {
 	private int telefonoContatto;
 	
 	//-------------------------------- dati contatto
+	
 }
