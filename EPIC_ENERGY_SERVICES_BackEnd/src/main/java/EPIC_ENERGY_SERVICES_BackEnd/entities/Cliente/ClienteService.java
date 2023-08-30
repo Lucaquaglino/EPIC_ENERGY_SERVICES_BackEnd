@@ -77,13 +77,8 @@ public class ClienteService {
 	    }
 		
 		//--------------------------------------------------------------------------- filtro parte del nome della ragione sociale
-		public List<Cliente> filterRagioneSociale(String parteRagioneSociale){
-									
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getRagioneSociale().contains(parteRagioneSociale))
-					.collect(Collectors.toList());
-									
-			return lista;
-									
-		}
+		public Page<Cliente> filterRagioneSociale(String parteRagioneSociale, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
+	    }
 }
