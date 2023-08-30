@@ -52,7 +52,9 @@ public class ComuneRunner implements CommandLineRunner {
 						String codiceComune = record.get(1);
 						String nomeComune = record.get(2);
 						String provinciaStr = record.get(3);
-
+						if (provinciaStr.equalsIgnoreCase("Verbano-Cusio-Ossola")) {
+							provinciaStr = "verbania";
+						}
 						Provincia provincia = provinciaService.findByName(provinciaStr);
 
 						comuneService.create(codiceProvincia, codiceComune, nomeComune, provincia);
