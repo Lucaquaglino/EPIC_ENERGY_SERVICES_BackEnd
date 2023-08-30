@@ -1,10 +1,17 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.utente;
 
+
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
+
 
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.BadRequestException;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
@@ -17,6 +24,10 @@ public class UtenteService {
 
 	@Autowired
 	UtenteRepository utenteRepository;
+	
+
+	
+
 
 	// SALVA NUOVO UTENTE + ECCEZIONE SE VIENE USATA LA STESSA EMAIL
 	public Utente save(NuovoUtentePayload body) {
@@ -30,6 +41,11 @@ public class UtenteService {
 	// TORNA LA LISTA DEGLI UTENTI
 	public List<Utente> getUsers() {
 		return utenteRepository.findAll();
+	}
+	
+	public Page<Utente> findAll(int page, String ordinamento) {
+		Pageable pagina = PageRequest.of(page, 10, Sort.by(ordinamento));
+		return utenteRepository.findAll(pagina);
 	}
 
 	// CERCA UTENTE TRAMITE ID
