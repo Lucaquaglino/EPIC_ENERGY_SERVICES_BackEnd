@@ -46,13 +46,13 @@ public class ClienteService {
 			);
 			
 			// crea indirizzo
-			Indirizzo indirizzoDue = is.create(
-					body.getViaDue(),
-					body.getCivicoDue(),
-					body.getLocalitaDue(),
-					body.getCapDue(),
-					body.getComuneDue()
-			);
+//			Indirizzo indirizzoDue = is.create(
+//					body.getViaDue(),
+//					body.getCivicoDue(),
+//					body.getLocalitaDue(),
+//					body.getCapDue(),
+//					body.getComuneDue()
+//			);
 			
 			// crea cliente
 			Cliente newCliente = Cliente.builder()
@@ -69,7 +69,6 @@ public class ClienteService {
 					.dataInserimento(LocalDate.now())
 					.ultimoContatto(LocalDate.now())
 					.indirizzoSedeLegale(indirizzoUno)
-					.indirizzoSedeOperativa(indirizzoDue)
 					.build();	
 			
 			return cr.save(newCliente);
