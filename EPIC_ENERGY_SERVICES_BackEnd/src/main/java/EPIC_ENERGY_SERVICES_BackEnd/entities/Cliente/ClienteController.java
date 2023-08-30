@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.Provincia;
-
 @RestController
 @RequestMapping("/clienti")
 public class ClienteController {
