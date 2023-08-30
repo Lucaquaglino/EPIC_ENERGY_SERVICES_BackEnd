@@ -56,7 +56,6 @@ public class Cliente {
 	final private List<Fattura> fatture = new ArrayList<Fattura>();
 	
 	//-------------------------------- collegamento con indirizzo
-	@Builder.Default
 	@OneToMany
-	private List<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
+	final private List<Indirizzo> indirizzi = new ArrayList<Indirizzo>();
  }
