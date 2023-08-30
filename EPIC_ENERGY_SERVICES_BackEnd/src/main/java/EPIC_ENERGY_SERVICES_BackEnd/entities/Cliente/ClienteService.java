@@ -2,7 +2,6 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import EPIC_ENERGY_SERVICES_BackEnd.entities.provincia.Provincia;
 
 @Service
 public class ClienteService {
@@ -61,15 +59,10 @@ public class ClienteService {
 		}
 		
 		//--------------------------------------------------------------------------- filtro fatturazione annuale
-		public List<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale){
-			
-			List<Cliente> lista = cr.findAll().stream()
-					.filter(c -> c.getFatturatoAnnuale()==fatturatoAnnuale)
-					.collect(Collectors.toList());
-			
-			return lista;
-			
-		}
+		public Page<Cliente> filterFatturatoAnnuale(double fatturatoAnnuale, int page, int pageSize) {
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        return cr.findByFatturatoAnnuale(fatturatoAnnuale, pageable);
+	    }
 		
 		//--------------------------------------------------------------------------- filtro data di inserimento
 		public List<Cliente> filterDataInserimento(LocalDate dataInserimento){

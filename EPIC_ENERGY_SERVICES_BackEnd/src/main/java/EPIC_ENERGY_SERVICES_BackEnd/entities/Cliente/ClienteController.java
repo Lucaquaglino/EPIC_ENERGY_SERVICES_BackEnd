@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,23 +36,21 @@ public class ClienteController {
 	}
 
 	@GetMapping("")
-	public Page<Cliente> findAll(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "ragioneSociale") String order) {
+	public Page<Cliente> findAll(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "ragioneSociale") String order
+	) {
 		return cs.findAll(page, order);
 	}
 
-	@GetMapping("/{fatturatoAnnuale}")
-	public ResponseEntity<List<Cliente>> getFiltroFatturatoAnnuale(@PathVariable double fatturatoAnnuale) {
-
-		List<Cliente> listaClienti = cs.filterFatturatoAnnuale(fatturatoAnnuale);
-
-		if (!listaClienti.isEmpty()) {
-			return new ResponseEntity<>(listaClienti, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-	}
+	@GetMapping("/filter")
+	public Page<Cliente> filterFattuartoAnnuale(
+            @RequestParam double fatturatoAnnuale,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return cs.filterFatturatoAnnuale(fatturatoAnnuale, page, pageSize);
+    }
 
 	@GetMapping("/{dataInserimento}")
 	public ResponseEntity<List<Cliente>> getFiltroDataInserimento(@PathVariable LocalDate dataInserimento) {
