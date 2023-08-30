@@ -23,6 +23,12 @@ public class ClientePayload {
 	private String emailContatto;
 	private int telefonoContatto;
 	
-	//-------------------------------- dati contatto
+	//-------------------------------- dati indirizzo
+	private String via;
+	private String civico;
+	private String localita;
+	private int cap;
 	
+	//-------------------------------- nome comune
+	private String comune;
 }
