@@ -39,6 +39,7 @@ public class ClienteService {
 					.telefonoContatto(body.getTelefonoContatto())
 					.dataInserimento(LocalDate.now())
 					.ultimoContatto(LocalDate.now())
+					.indirizzoUno()
 					.build();
 			
 			return cr.save(newCliente);

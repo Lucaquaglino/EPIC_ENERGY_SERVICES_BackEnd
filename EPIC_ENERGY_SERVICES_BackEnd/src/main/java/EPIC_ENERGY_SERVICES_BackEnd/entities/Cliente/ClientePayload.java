@@ -23,5 +23,4 @@ public class ClientePayload {
 	private String emailContatto;
 	private int telefonoContatto;
 	
-	//-------------------------------- dati contatto
 }
