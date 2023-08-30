@@ -135,21 +135,25 @@ public class FatturaService {
         return fr.findByClienteId(clienteId, pageable);
     }
 
-    public Page<Fattura> filterByStato(StatoFattura stato, int page, int pageSize) {
+	//--------------------------------------------------------------------------- filtro per stato fattura
+    public Page<Fattura> filterByStatoFattura(String stato, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByStatoFattura(stato, pageable);
     }
 
+  //--------------------------------------------------------------------------- filtro per data
     public Page<Fattura> filterByData(LocalDate data, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByData(data, pageable);
     }
 
+  //--------------------------------------------------------------------------- filtro per anno
     public Page<Fattura> filterByAnno(int anno, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByAnno(anno, pageable);
     }
 
+  //--------------------------------------------------------------------------- filtro per importo
     public Page<Fattura> filterByImportRange(BigDecimal minImporto, BigDecimal maxImporto, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return fr.findByImportoBetsween(minImporto, maxImporto, pageable);

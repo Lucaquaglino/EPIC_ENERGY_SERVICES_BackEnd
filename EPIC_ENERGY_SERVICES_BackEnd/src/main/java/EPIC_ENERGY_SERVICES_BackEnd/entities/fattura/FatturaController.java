@@ -40,27 +40,24 @@ public class FatturaController {
 
 	}
 
-	@GetMapping("/filterByCliente/{idCliente}")
-	public ResponseEntity<List<Fattura>> getFilterByClienteId(@PathVariable UUID idCliente) {
-
-		List<Fattura> listaFatture = fs.filterByClienteId(idCliente);
-
-		if (listaFatture.isEmpty()) {
-			return new ResponseEntity<>(listaFatture, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+	//--------------------------------------------------------------------------- filtro per cliente
+	@GetMapping("/filter/ragioneSociale")
+	public Page<Fattura> filterByRagioneSociale(
+			@RequestParam String ragioneSociale,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+	) {
+		return fs.filterByCliente(ragioneSociale, page, pageSize);
 	}
 	
-	@GetMapping("/filterByStato/{statoCliente}")
-	public ResponseEntity<List<Fattura>> getFilerByStatoFattura(@PathVariable StatoFattura statoFattura) {
-		List<Fattura> listaFatture = fs.filterByStato(statoFattura);
-		
-		if(listaFatture.isEmpty()) {
-			return new ResponseEntity<>(listaFatture, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+	//--------------------------------------------------------------------------- filtro per stato fattura
+	@GetMapping("/filter/statoFattura")
+	public Page<Fattura> filterByStatoFattura(
+			@RequestParam String statoFattura,
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "10") int pageSize
+	) {
+		return fs.filterByCliente(statoFattura, page, pageSize);
 	}
 	
 	@GetMapping("/filterByData/{data}")
