@@ -9,9 +9,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class FatturaPayload {
+	private UUID id;
 	private int anno;
 	private LocalDate data;
 	private double importo;
 	private StatoFattura statoFattura;
-	private UUID id_cliente;
+	private UUID idCliente;
 }

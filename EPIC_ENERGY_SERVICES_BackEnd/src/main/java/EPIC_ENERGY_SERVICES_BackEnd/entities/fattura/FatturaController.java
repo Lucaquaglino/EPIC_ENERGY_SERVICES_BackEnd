@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/fattura")
 public class FatturaController {
 
 	@Autowired
 	private FatturaService fs;
-	
+
 	@GetMapping("")
 	public Page<Fattura> findAll(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "id") String order) {
@@ -40,58 +39,51 @@ public class FatturaController {
 		return fatturaCreata;
 
 	}
-	
-	//--------------------------------------------------------------------------- trova per id
+
+	// ---------------------------------------------------------------------------
+	// trova per id
 	@GetMapping("/{id}")
 	public Fattura findById(@PathVariable UUID id) throws NotFoundException {
 		return fs.findById(id);
 	}
-		
-	//--------------------------------------------------------------------------- elimina
+
+	// ---------------------------------------------------------------------------
+	// elimina
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteById(@PathVariable UUID id) throws NotFoundException {
 		fs.findByIdAndDelete(id);
 	}
 
-	//--------------------------------------------------------------------------- filtro per cliente
+	// ---------------------------------------------------------------------------
+	// filtro per cliente
 	@GetMapping("/filter/ragioneSociale")
-	public Page<Fattura> filterByRagioneSociale(
-			@RequestParam String ragioneSociale,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int pageSize
-	) {
+	public Page<Fattura> filterByRagioneSociale(@RequestParam String ragioneSociale,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
 		return fs.filterByCliente(ragioneSociale, page, pageSize);
 	}
-	
-	//--------------------------------------------------------------------------- filtro per stato fattura
+
+	// ---------------------------------------------------------------------------
+	// filtro per stato fattura
 	@GetMapping("/filter/statoFattura")
-	public Page<Fattura> filterByStatoFattura(
-			@RequestParam StatoFattura statoFattura,
-	        @RequestParam(defaultValue = "0") int page,
-	        @RequestParam(defaultValue = "10") int pageSize
-	) {
+	public Page<Fattura> filterByStatoFattura(@RequestParam StatoFattura statoFattura,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
 		return fs.filterByStatoFattura(statoFattura, page, pageSize);
 	}
-	
-	//--------------------------------------------------------------------------- filtro per data
+
+	// ---------------------------------------------------------------------------
+	// filtro per data
 	@GetMapping("/filter/data")
-	public Page<Fattura> filterByData(
-			@RequestParam LocalDate data,
-		    @RequestParam(defaultValue = "0") int page,
-		    @RequestParam(defaultValue = "10") int pageSize
-	) {
+	public Page<Fattura> filterByData(@RequestParam LocalDate data, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int pageSize) {
 		return fs.filterByData(data, page, pageSize);
 	}
-	
-	//--------------------------------------------------------------------------- filtro per range importi
+
+	// ---------------------------------------------------------------------------
+	// filtro per range importi
 	@GetMapping("/filter/importRange")
-	public Page<Fattura> filterByImportRange(
-			@RequestParam double minImporto,
-			@RequestParam double maxImporto,
-			@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int pageSize
-	) {
+	public Page<Fattura> filterByImportRange(@RequestParam double minImporto, @RequestParam double maxImporto,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
 		return fs.filterByImportRange(minImporto, maxImporto, page, pageSize);
 	}
 }
