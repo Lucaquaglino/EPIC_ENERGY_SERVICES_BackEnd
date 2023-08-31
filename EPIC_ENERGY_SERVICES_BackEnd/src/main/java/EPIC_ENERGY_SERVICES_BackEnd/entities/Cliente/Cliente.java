@@ -20,50 +20,51 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="clienti")
+@Table(name = "clienti")
 
 public class Cliente {
 
 	@Id
 	@GeneratedValue
 	private UUID idCliente;
-	
-	//-------------------------------- dati cliente (azienda)
+
+	// -------------------------------- dati cliente (azienda)
 	private String ragioneSociale;
 	private int partitaIva;
 	private String emailCliente;
 	private String pec;
 	private int telefonoCliente;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TIPO_CLIENTE tipoCliente;
-	
-	//--------------------------------  dati contatto
+
+	// -------------------------------- dati contatto
 	private String nomeContatto;
 	private String cognomeContatto;
 	private String emailContatto;
 	private int telefonoContatto;
-	
-	//-------------------------------- attributi inizializzati alla crazione
+
+	// -------------------------------- attributi inizializzati alla crazione
 	private LocalDate dataInserimento;
 	private LocalDate ultimoContatto;
 	@Builder.Default
 	private double fatturatoAnnuale = 0;
-	
-	//-------------------------------- collegamento con fatture
+
+	// -------------------------------- collegamento con fatture
 	@OneToMany
 	final private List<Fattura> fatture = new ArrayList<Fattura>();
-	
-	//-------------------------------- collegamento con indirizzo
+
+	// -------------------------------- collegamento con indirizzo
 	@OneToOne
+
 	private Indirizzo indirizzoSedeLegale;
-	
+
 	@OneToOne
+
 	private Indirizzo indirizzoSedeOperativa;
- }
+}

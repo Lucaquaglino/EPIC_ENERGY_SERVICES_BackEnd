@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.Comune;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.ComuneService;
+
 @RestController
 @RequestMapping("/indirizzo")
 public class IndirizzoController {
 	@Autowired
 	IndirizzoService is;
+
+	@Autowired
+	ComuneService comuneService;
 
 	@GetMapping("")
 	public Page<Indirizzo> findAll(@RequestParam(defaultValue = "0") int page,
@@ -46,8 +52,8 @@ public class IndirizzoController {
 
 	@PostMapping("")
 	public Indirizzo createIndirizzo(@RequestBody IndirizzoPayload payload) throws NotFoundException {
-		return is.create(payload.getVia(), payload.getCivico(), payload.getLocalita(), payload.getCap(),
-				payload.getNomeComune());
+		Comune comune = comuneService.findByName(payload.getNomeComune());
+		return is.create(payload.getVia(), payload.getCivico(), payload.getLocalita(), payload.getCap(), comune);
 	}
 
 }
