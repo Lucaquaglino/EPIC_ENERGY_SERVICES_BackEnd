@@ -28,6 +28,6 @@ public class ComuneController {
 
 	@GetMapping("/nome")
 	public Comune findByname(@RequestParam String nome) throws NotFoundException {
-		return cs.findByName(nome);
+		return cs.findByNameIgnoreCase(nome);
 	}
 }

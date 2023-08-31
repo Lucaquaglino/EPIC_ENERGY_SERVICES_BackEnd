@@ -33,12 +33,12 @@ public class ClienteService {
 	public Cliente creaCliente(ClientePayload body) throws NotFoundException {
 
 		// crea indirizzo
-		Comune comuneUno = comuneService.findByName(body.getComuneUno());
+		Comune comuneUno = comuneService.findByNameIgnoreCase(body.getComuneUno());
 		Indirizzo indirizzoUno = is.create(body.getViaUno(), body.getCivicoUno(), body.getLocalitaUno(),
 				body.getCapUno(), comuneUno);
 
 		// crea indirizzo
-		Comune comuneDue = comuneService.findByName(body.getComuneDue());
+		Comune comuneDue = comuneService.findByNameIgnoreCase(body.getComuneDue());
 		Indirizzo indirizzoDue = is.create(body.getViaDue(), body.getCivicoDue(), body.getLocalitaDue(),
 				body.getCapDue(), comuneDue);
 		// ...
