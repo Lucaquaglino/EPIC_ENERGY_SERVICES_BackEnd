@@ -1,5 +1,7 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.provincia;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,10 @@ public class ProvinciaController {
 		return ps.findByName(provincia);
 	}
 
+	@GetMapping("/{id}")
+	public Provincia findById(@PathVariable UUID id) throws NotFoundException {
+		return ps.findById(id);
+	}
 //	@Autowired
 //	ProvinciaService provinceService;
 

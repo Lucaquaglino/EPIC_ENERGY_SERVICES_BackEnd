@@ -1,6 +1,7 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.provincia;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -30,10 +31,10 @@ public class ProvinciaService {
 		Pageable pagina = PageRequest.of(page, 10, Sort.by(ordinamento));
 		return provinciaRepo.findAll(pagina);
 	}
-//
-//	public Provincia findById(String idProvincia) throws NotFoundException {
-//		return provinciaRepo.findById(idProvincia).orElseThrow(() -> new NotFoundException());
-//	}
+
+	public Provincia findById(UUID id) throws NotFoundException {
+		return provinciaRepo.findById(id).orElseThrow(() -> new NotFoundException());
+	}
 
 	public Provincia findByName(String nomeProvincia) {
 		return provinciaRepo.findByProvinciaIgnoreCase(nomeProvincia);
