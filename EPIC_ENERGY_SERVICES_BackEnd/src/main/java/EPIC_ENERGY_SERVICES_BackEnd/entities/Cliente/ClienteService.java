@@ -1,11 +1,14 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -111,5 +114,18 @@ public class ClienteService {
 	public Page<Cliente> filterRagioneSociale(String parteRagioneSociale, int page, int pageSize) {
 		Pageable pageable = PageRequest.of(page, pageSize);
 		return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
+	}
+	
+	// ---------------------------------------------------------------------------
+	// filtro parte del nome della ragione sociale
+	public Page<Cliente> filterProvincia(String provinciaSedeLegale, int page, int pageSize) {
+		Pageable pageable = PageRequest.of(page, pageSize);
+		
+		List<Cliente> clientiTrovati = cr.findAll().stream()
+				.filter(c -> c.getIndirizzoSedeLegale().getComune().getProvincia().getProvincia()
+						.equals(provinciaSedeLegale))
+				.collect(Collectors.toList());
+		
+		return new PageImpl<>(clientiTrovati, pageable, clientiTrovati.size());
 	}
 }
