@@ -39,8 +39,9 @@ public class ComuneService {
 		return comuneRepo.findById(id).orElseThrow(() -> new NotFoundException());
 	}
 
-	public Comune findByName(String nome) throws NotFoundException {
-		Optional<Comune> optionalComune = comuneRepo.findByNomeComune(nome);
+	public Comune findByNameIgnoreCase(String nome) throws NotFoundException {
+		String nomeCapitalized = nome.substring(0, 1).toUpperCase() + nome.substring(1).toLowerCase();
+		Optional<Comune> optionalComune = comuneRepo.findByNomeComune(nomeCapitalized);
 		return optionalComune.orElseThrow(() -> new NotFoundException());
 	}
 

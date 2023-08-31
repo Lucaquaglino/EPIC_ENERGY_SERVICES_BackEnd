@@ -52,7 +52,7 @@ public class IndirizzoController {
 
 	@PostMapping("")
 	public Indirizzo createIndirizzo(@RequestBody IndirizzoPayload payload) throws NotFoundException {
-		Comune comune = comuneService.findByName(payload.getNomeComune());
+		Comune comune = comuneService.findByNameIgnoreCase(payload.getNomeComune());
 		return is.create(payload.getVia(), payload.getCivico(), payload.getLocalita(), payload.getCap(), comune);
 	}
 

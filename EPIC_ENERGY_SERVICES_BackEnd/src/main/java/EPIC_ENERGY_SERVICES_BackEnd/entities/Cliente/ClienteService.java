@@ -1,11 +1,14 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,12 +36,12 @@ public class ClienteService {
 	public Cliente creaCliente(ClientePayload body) throws NotFoundException {
 
 		// crea indirizzo
-		Comune comuneUno = comuneService.findByName(body.getComuneUno());
+		Comune comuneUno = comuneService.findByNameIgnoreCase(body.getComuneUno());
 		Indirizzo indirizzoUno = is.create(body.getViaUno(), body.getCivicoUno(), body.getLocalitaUno(),
 				body.getCapUno(), comuneUno);
 
 		// crea indirizzo
-		Comune comuneDue = comuneService.findByName(body.getComuneDue());
+		Comune comuneDue = comuneService.findByNameIgnoreCase(body.getComuneDue());
 		Indirizzo indirizzoDue = is.create(body.getViaDue(), body.getCivicoDue(), body.getLocalitaDue(),
 				body.getCapDue(), comuneDue);
 		// ...
@@ -63,6 +66,19 @@ public class ClienteService {
 		cliente.setUltimoContatto(LocalDate.now());
 		cliente.setFatturatoAnnuale(cliente.getFatturatoAnnuale() + importo);
 		return cr.save(cliente);
+	}
+	
+	// ---------------------------------------------------------------------------
+	// trova cliente per id
+	public Cliente findById(UUID id) throws NotFoundException {
+		return cr.findById(id).orElseThrow(() -> new NotFoundException());
+	}
+	
+	// ---------------------------------------------------------------------------
+	// trova cliente per id
+	public void findByIdAndDelete(UUID id) throws NotFoundException {
+		Cliente clienteTrovato = this.findById(id);
+		cr.delete(clienteTrovato);
 	}
 
 	// ---------------------------------------------------------------------------
@@ -98,5 +114,18 @@ public class ClienteService {
 	public Page<Cliente> filterRagioneSociale(String parteRagioneSociale, int page, int pageSize) {
 		Pageable pageable = PageRequest.of(page, pageSize);
 		return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
+	}
+	
+	// ---------------------------------------------------------------------------
+	// filtro parte del nome della ragione sociale
+	public Page<Cliente> filterProvincia(String provinciaSedeLegale, int page, int pageSize) {
+		Pageable pageable = PageRequest.of(page, pageSize);
+		
+		List<Cliente> clientiTrovati = cr.findAll().stream()
+				.filter(c -> c.getIndirizzoSedeLegale().getComune().getProvincia().getProvincia()
+						.equals(provinciaSedeLegale))
+				.collect(Collectors.toList());
+		
+		return new PageImpl<>(clientiTrovati, pageable, clientiTrovati.size());
 	}
 }

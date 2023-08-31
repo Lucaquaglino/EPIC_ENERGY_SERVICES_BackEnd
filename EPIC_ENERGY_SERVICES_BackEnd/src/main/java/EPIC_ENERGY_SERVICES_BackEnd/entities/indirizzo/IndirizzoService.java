@@ -45,7 +45,7 @@ public class IndirizzoService {
 		Indirizzo in = findById(id);
 		in.setCap(body.getCap());
 		in.setCivico(body.getCivico());
-		in.setComune(comuneService.findByName(body.getNomeComune()));
+		in.setComune(comuneService.findByNameIgnoreCase(body.getNomeComune()));
 		in.setLocalita(body.getLocalita());
 		in.setVia(body.getVia());
 
