@@ -96,4 +96,14 @@ public class ClienteController {
 		return cs.filterRagioneSociale(parteRagioneSociale, page, pageSize);
 	}
 
+	//--------------------------------------------------------------------------- filtro provincia sede legale
+	@GetMapping("/filter/provinciaSedeLegale")
+	public Page<Cliente> filterProvincia(
+			@RequestParam String provinciaSedeLegale,
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "10") int pageSize
+	) {
+		return cs.filterProvincia(provinciaSedeLegale, page, pageSize);
+	}
+
 }
