@@ -2,6 +2,7 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.comune;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -35,7 +36,7 @@ public class ComuneService {
 		return comuneRepo.findAll(pagina);
 	}
 
-	public Comune findById(int id) throws NotFoundException {
+	public Comune findById(UUID id) throws NotFoundException {
 		return comuneRepo.findById(id).orElseThrow(() -> new NotFoundException());
 	}
 

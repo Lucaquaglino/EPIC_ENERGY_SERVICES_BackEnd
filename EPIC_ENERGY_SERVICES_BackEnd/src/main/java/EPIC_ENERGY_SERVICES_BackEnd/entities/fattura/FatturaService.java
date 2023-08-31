@@ -31,8 +31,7 @@ public class FatturaService {
 
 	// ---------------------------------------------------------------------------
 	// creazione cliente
-	public Fattura creaFattura(FatturaPayload body)
-			throws org.springframework.data.crossstore.ChangeSetPersister.NotFoundException {
+	public Fattura creaFattura(FatturaPayload body) throws Exception {
 		Cliente cliente = cr.findById(body.getIdCliente())
 				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 

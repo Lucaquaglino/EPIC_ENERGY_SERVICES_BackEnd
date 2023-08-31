@@ -30,8 +30,8 @@ public class Fattura {
 	private double numeroFattura;
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
-	
+
 	@ManyToOne
 	private Cliente cliente;
-	
+
 }

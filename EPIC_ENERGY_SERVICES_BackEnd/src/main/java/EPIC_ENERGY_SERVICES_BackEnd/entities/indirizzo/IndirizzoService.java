@@ -37,11 +37,11 @@ public class IndirizzoService {
 		return indirizzoRepo.findAll(pagina);
 	}
 
-	public Indirizzo findById(String id) throws NotFoundException {
-		return indirizzoRepo.findById(UUID.fromString(id)).orElseThrow(() -> new NotFoundException());
+	public Indirizzo findById(UUID id) throws NotFoundException {
+		return indirizzoRepo.findById(id).orElseThrow(() -> new NotFoundException());
 	}
 
-	public Indirizzo findByIdAndUpadate(String id, IndirizzoPayload body) throws NotFoundException {
+	public Indirizzo findByIdAndUpadate(UUID id, IndirizzoPayload body) throws NotFoundException {
 		Indirizzo in = findById(id);
 		in.setCap(body.getCap());
 		in.setCivico(body.getCivico());
@@ -53,7 +53,7 @@ public class IndirizzoService {
 
 	}
 
-	public void findByIdAndDelete(String id) throws NotFoundException {
+	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		Indirizzo in = findById(id);
 
 		indirizzoRepo.delete(in);
