@@ -31,8 +31,8 @@ public class FatturaService {
 
 	// ---------------------------------------------------------------------------
 	// creazione cliente
-	public Fattura creaFattura(FatturaPayload body) {
-
+	public Fattura creaFattura(FatturaPayload body)
+			throws org.springframework.data.crossstore.ChangeSetPersister.NotFoundException {
 		Cliente cliente = cr.findById(body.getIdCliente())
 				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 
@@ -45,12 +45,15 @@ public class FatturaService {
 			f = fatturaMax.get().getNumeroFattura() + 1;
 
 		Fattura newFattura = Fattura.builder().anno(body.getAnno()).data(body.getData()).importo(body.getImporto())
-				.numeroFattura(f).statoFattura(body.getStatoFattura()).cliente(cliente).build();
+				.numeroFattura(f).statoFattura(body.getStatoFattura()).build();
 
-		// aggiornamento dati cliente (ultimo contatto e fatturato annuo)
-		cs.findByIdAndUpdateFattura(body.getIdCliente(), body.getImporto());
+		// Salvataggio della nuova fattura nel repository delle fatture
+		newFattura = fr.save(newFattura);
 
-		return fr.save(newFattura);
+		// Aggiornamento dati cliente (ultimo contatto e fatturato annuo)
+		cs.findByIdAndUpdateFattura(body.getIdCliente(), body.getImporto(), newFattura);
+
+		return newFattura;
 	}
 
 	public List<Fattura> find() {

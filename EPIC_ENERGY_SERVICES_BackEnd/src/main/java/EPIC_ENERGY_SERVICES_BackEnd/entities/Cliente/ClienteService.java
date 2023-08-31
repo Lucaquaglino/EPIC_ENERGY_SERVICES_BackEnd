@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.Comune;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.ComuneService;
+import EPIC_ENERGY_SERVICES_BackEnd.entities.fattura.Fattura;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.Indirizzo;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo.IndirizzoService;
 
@@ -61,19 +62,26 @@ public class ClienteService {
 
 	// ---------------------------------------------------------------------------
 	// modifica cliente a inserimento fattura
-	public Cliente findByIdAndUpdateFattura(UUID id, double importo) {
-		Cliente cliente = cr.findById(id).get();
+	public Cliente findByIdAndUpdateFattura(UUID id, double importo, Fattura nuovaFattura) throws NotFoundException {
+		Cliente cliente = cr.findById(id).orElseThrow(() -> new NotFoundException());
+
+		// Aggiorna l'ultimo contatto e il fatturato annuale
 		cliente.setUltimoContatto(LocalDate.now());
 		cliente.setFatturatoAnnuale(cliente.getFatturatoAnnuale() + importo);
+
+		// Aggiungi la nuova fattura all'array di fatture del cliente
+		cliente.getFatture().add(nuovaFattura);
+
+		// Salva il cliente aggiornato nel repository
 		return cr.save(cliente);
 	}
-	
+
 	// ---------------------------------------------------------------------------
 	// trova cliente per id
 	public Cliente findById(UUID id) throws NotFoundException {
 		return cr.findById(id).orElseThrow(() -> new NotFoundException());
 	}
-	
+
 	// ---------------------------------------------------------------------------
 	// trova cliente per id
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
@@ -115,17 +123,16 @@ public class ClienteService {
 		Pageable pageable = PageRequest.of(page, pageSize);
 		return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
 	}
-	
+
 	// ---------------------------------------------------------------------------
 	// filtro parte del nome della ragione sociale
 	public Page<Cliente> filterProvincia(String provinciaSedeLegale, int page, int pageSize) {
 		Pageable pageable = PageRequest.of(page, pageSize);
-		
-		List<Cliente> clientiTrovati = cr.findAll().stream()
-				.filter(c -> c.getIndirizzoSedeLegale().getComune().getProvincia().getProvincia()
-						.equals(provinciaSedeLegale))
+
+		List<Cliente> clientiTrovati = cr.findAll().stream().filter(
+				c -> c.getIndirizzoSedeLegale().getComune().getProvincia().getProvincia().equals(provinciaSedeLegale))
 				.collect(Collectors.toList());
-		
+
 		return new PageImpl<>(clientiTrovati, pageable, clientiTrovati.size());
 	}
 }

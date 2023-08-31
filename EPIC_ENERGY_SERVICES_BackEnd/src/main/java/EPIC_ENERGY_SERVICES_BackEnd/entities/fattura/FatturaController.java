@@ -32,7 +32,7 @@ public class FatturaController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Fattura salvaFattura(@RequestBody FatturaPayload body) {
+	public Fattura salvaFattura(@RequestBody FatturaPayload body) throws NotFoundException {
 
 		Fattura fatturaCreata = fs.creaFattura(body);
 
