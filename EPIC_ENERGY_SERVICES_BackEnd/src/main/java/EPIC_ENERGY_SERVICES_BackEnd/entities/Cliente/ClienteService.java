@@ -64,6 +64,19 @@ public class ClienteService {
 		cliente.setFatturatoAnnuale(cliente.getFatturatoAnnuale() + importo);
 		return cr.save(cliente);
 	}
+	
+	// ---------------------------------------------------------------------------
+	// trova cliente per id
+	public Cliente findById(UUID id) throws NotFoundException {
+		return cr.findById(id).orElseThrow(() -> new NotFoundException());
+	}
+	
+	// ---------------------------------------------------------------------------
+	// trova cliente per id
+	public void findByIdAndDelete(UUID id) throws NotFoundException {
+		Cliente clienteTrovato = this.findById(id);
+		cr.delete(clienteTrovato);
+	}
 
 	// ---------------------------------------------------------------------------
 	// ordinamenti
