@@ -17,7 +17,6 @@ public class CorsFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 		response.setHeader("Access-Control-Allow-Methods", "*");
@@ -26,7 +25,7 @@ public class CorsFilter extends OncePerRequestFilter {
 
 		if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
 			response.setStatus(HttpServletResponse.SC_OK); // <-- 200 OK
-		} else { // "GET", "POST", "PUT", "DELETE", ecc ecc..
+		} else { 
 			filterChain.doFilter(request, response);
 		}
 	}

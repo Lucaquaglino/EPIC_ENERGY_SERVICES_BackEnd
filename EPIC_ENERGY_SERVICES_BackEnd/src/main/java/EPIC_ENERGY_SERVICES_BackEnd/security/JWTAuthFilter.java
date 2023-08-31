@@ -26,6 +26,13 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 	@Autowired
 	UtenteService utenteService;
 
+	
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		 AntPathMatcher matcher = new AntPathMatcher();
+		    return matcher.match("/auth/**", request.getServletPath());
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -33,7 +40,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 		if (authHeader == null || !authHeader.startsWith("Bearer "))
 			throw new UnauthorizedException("Per favore passa il token nell'authorization header");
 		String token = authHeader.substring(7);
-		System.out.println("TOKEN = " + token);
+
 		jwttools.verifyToken(token);
 		String id = jwttools.extractSubject(token);
 		Utente currentUser = utenteService.findById(UUID.fromString(id));
@@ -45,10 +52,5 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
 	}
 
-	@Override
-	protected boolean shouldNotFilter(HttpServletRequest request) {
-		System.out.println(request.getServletPath());
-		return new AntPathMatcher().match("/auth/**", request.getServletPath());
-	}
-
+	
 }

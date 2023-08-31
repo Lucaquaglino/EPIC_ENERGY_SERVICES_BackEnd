@@ -31,9 +31,9 @@ public class UtenteControllerTest {
     @Test
     public void testLogin() throws Exception {
 
-        String loginPayload = "{\"email\":\"luca@quaglino.com\", \"password\":\"1234\"}";
+        String loginPayload = "{\"email\":\"gelsomina.pagano@email.it\", \"password\":\"1234\"}";
         
-        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
                     .contentType("application/json")
                     .content(loginPayload))
                .andExpect(status().isOk())

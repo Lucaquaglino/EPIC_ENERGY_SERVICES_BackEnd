@@ -20,34 +20,32 @@ import EPIC_ENERGY_SERVICES_BackEnd.exceptions.UnauthorizedException;
 @RequestMapping("/auth")
 public class AuthController {
 
-	@Autowired
-	UtenteService utenteService;
+    @Autowired
+    UtenteService utenteService;
 
-	@Autowired
-	JWTTools jwtTools;
+    @Autowired
+    JWTTools jwtTools;
 
-	@Autowired
-	PasswordEncoder bcrypt;
+    @Autowired
+    PasswordEncoder bcrypt;
 
-	@PostMapping("/register")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveUtente(@RequestBody NuovoUtentePayload body) {
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Utente saveUtente(@RequestBody NuovoUtentePayload body) {
+        body.setPassword(bcrypt.encode(body.getPassword()));
+        Utente created = utenteService.save(body);
+        return created;
+    }
 
-		body.setPassword(bcrypt.encode(body.getPassword()));
-		Utente created = utenteService.save(body);
-		return created;
-	}
+    @PostMapping("/login")
+    public LoginSuccessfullPayload login(@RequestBody UtenteLoginPayload body) {
+        Utente utente = utenteService.findByEmail(body.getEmail());
 
-	@PostMapping("/login")
-	public LoginSuccessfullPayload login(@RequestBody UtenteLoginPayload body) {
-
-		Utente utente = utenteService.findByEmail(body.getEmail());
-
-		if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
-			String token = jwtTools.createToken(utente);
-			return new LoginSuccessfullPayload(token);
-		} else {
-			throw new UnauthorizedException("Credenziali non valide");
-		}
-	}
+        if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
+            String token = jwtTools.createToken(utente);
+            return new LoginSuccessfullPayload(token);
+        } else {
+            throw new UnauthorizedException("Credenziali non valide");
+        }
+    }
 }
