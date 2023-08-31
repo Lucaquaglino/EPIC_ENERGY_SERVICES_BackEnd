@@ -6,7 +6,7 @@ import EPIC_ENERGY_SERVICES_BackEnd.entities.comune.Comune;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +21,7 @@ public class Indirizzo {
 	private String civico;
 	private String localita;
 	private String cap;
-	@OneToOne
+	@ManyToOne
 	private Comune comune;
 
 	public Indirizzo(String via, String civico, String localita, String cap, Comune comune) {

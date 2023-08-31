@@ -46,7 +46,7 @@ public class IndirizzoRunner implements CommandLineRunner {
 				int comuneIndex = faker.random().nextInt(comuniSize); // Scelta casuale di un comune
 				Comune c = comuni.get(comuneIndex);
 
-				ind.create(via, civico, localita, cap, c.getNomeComune());
+				ind.create(via, civico, localita, cap, c);
 			}
 		}
 	}
