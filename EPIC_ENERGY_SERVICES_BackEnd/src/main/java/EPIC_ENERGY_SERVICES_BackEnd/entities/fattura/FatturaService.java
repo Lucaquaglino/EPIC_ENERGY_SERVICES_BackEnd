@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteRepository;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteService;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
@@ -29,8 +30,10 @@ public class FatturaService {
 	ClienteService cs;
 
 	// ---------------------------------------------------------------------------
-	// creazione fattura
+	// creazione cliente
 	public Fattura creaFattura(FatturaPayload body) throws Exception {
+		Cliente cliente = cr.findById(body.getIdCliente())
+				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 
 		Optional<Fattura> fatturaMax = fr.findAll().stream()
 				.max((f1, f2) -> Double.compare(f1.getNumeroFattura(), f2.getNumeroFattura()));

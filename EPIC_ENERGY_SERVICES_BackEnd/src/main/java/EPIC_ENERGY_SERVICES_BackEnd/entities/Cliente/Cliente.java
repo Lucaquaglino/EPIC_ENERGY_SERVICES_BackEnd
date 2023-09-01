@@ -68,8 +68,4 @@ public class Cliente {
 	@OneToOne
 
 	private Indirizzo indirizzoSedeOperativa;
-	
-	public void setFatture(Fattura f) {
-		this.fatture.add(f);
-	}
 }

@@ -70,7 +70,7 @@ public class ClienteService {
 		cliente.setFatturatoAnnuale(cliente.getFatturatoAnnuale() + importo);
 
 		// Aggiungi la nuova fattura all'array di fatture del cliente
-		cliente.setFatture(nuovaFattura);
+		cliente.getFatture().add(nuovaFattura);
 
 		// Salva il cliente aggiornato nel repository
 		return cr.save(cliente);
