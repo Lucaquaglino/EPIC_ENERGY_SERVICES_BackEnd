@@ -153,7 +153,8 @@ public class ClienteService {
 	// filtro parte del nome della ragione sociale
 	public Page<Cliente> filterRagioneSociale(String parteRagioneSociale, int page, int pageSize) {
 		Pageable pageable = PageRequest.of(page, pageSize);
-		return cr.findByRagioneSocialeContaining(parteRagioneSociale, pageable);
+		String nomeCapitalized = parteRagioneSociale.substring(0, 1).toUpperCase() + parteRagioneSociale.substring(1).toLowerCase();
+		return cr.findByRagioneSocialeContaining(nomeCapitalized, pageable);
 	}
 
 	// ---------------------------------------------------------------------------
