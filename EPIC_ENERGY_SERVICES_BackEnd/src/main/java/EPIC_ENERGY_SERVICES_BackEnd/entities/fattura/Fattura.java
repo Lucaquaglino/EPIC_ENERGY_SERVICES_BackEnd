@@ -3,13 +3,11 @@ package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,8 +28,6 @@ public class Fattura {
 	private double numeroFattura;
 	@Enumerated(EnumType.STRING)
 	private StatoFattura statoFattura;
-
-	@ManyToOne
-	private Cliente cliente;
+	private UUID idCliente;
 
 }

@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.Cliente;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteRepository;
 import EPIC_ENERGY_SERVICES_BackEnd.entities.Cliente.ClienteService;
 import EPIC_ENERGY_SERVICES_BackEnd.exceptions.NotFoundException;
@@ -32,8 +31,6 @@ public class FatturaService {
 	// ---------------------------------------------------------------------------
 	// creazione cliente
 	public Fattura creaFattura(FatturaPayload body) throws Exception {
-		Cliente cliente = cr.findById(body.getIdCliente())
-				.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 
 		Optional<Fattura> fatturaMax = fr.findAll().stream()
 				.max((f1, f2) -> Double.compare(f1.getNumeroFattura(), f2.getNumeroFattura()));
@@ -43,8 +40,14 @@ public class FatturaService {
 		if (fatturaMax.isPresent())
 			f = fatturaMax.get().getNumeroFattura() + 1;
 
-		Fattura newFattura = Fattura.builder().anno(body.getAnno()).data(body.getData()).importo(body.getImporto())
-				.numeroFattura(f).statoFattura(body.getStatoFattura()).build();
+		Fattura newFattura = Fattura.builder()
+				.anno(body.getAnno())
+				.data(body.getData())
+				.importo(body.getImporto())
+				.numeroFattura(f)
+				.statoFattura(body.getStatoFattura())
+				.idCliente(body.getIdCliente())
+				.build();
 
 		// Salvataggio della nuova fattura nel repository delle fatture
 		newFattura = fr.save(newFattura);
@@ -85,7 +88,7 @@ public class FatturaService {
 	public Page<Fattura> filterByCliente(String ragioneSociale, int page, int pageSize) {
 		UUID clienteId = cr.findByRagioneSociale(ragioneSociale).get().getIdCliente();
 		Pageable pageable = PageRequest.of(page, pageSize);
-		return fr.findByCliente(clienteId, pageable);
+		return fr.findByIdCliente(clienteId, pageable);
 	}
 
 	// ---------------------------------------------------------------------------
