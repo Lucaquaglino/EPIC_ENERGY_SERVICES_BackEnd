@@ -1,5 +1,7 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.comune;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -22,7 +24,7 @@ public class ComuneController {
 	}
 
 	@GetMapping("/{id}")
-	public Comune findById(@PathVariable int id) throws NotFoundException {
+	public Comune findById(@PathVariable UUID id) throws NotFoundException {
 		return cs.findById(id);
 	}
 

@@ -10,18 +10,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, UUID>{
-	
+public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
+
 	Optional<Cliente> findByPec(String pec);
-	
+
 	Optional<Cliente> findByRagioneSociale(String ragioneSociale);
-	
+
 	Page<Cliente> findByFatturatoAnnuale(double fatturatoAnnuale, Pageable pageable);
-	
+
 	Page<Cliente> findByDataInserimento(LocalDate dataInserimento, Pageable pageable);
-	
+
 	Page<Cliente> findByUltimoContatto(LocalDate ultimoContatto, Pageable pageable);
-	
+
 	Page<Cliente> findByRagioneSocialeContaining(String parteRagioneSociale, Pageable pageable);
-	
+
 }

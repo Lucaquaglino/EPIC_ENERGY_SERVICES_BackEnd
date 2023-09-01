@@ -51,8 +51,8 @@ public class ComuneRunner implements CommandLineRunner {
 						String codiceProvincia = record.get(0);
 						String codiceComune = record.get(1);
 						String nomeComune = record.get(2);
-						String provinciaStr = record.get(3);
-
+						String originalProvinciaStr = record.get(3);
+						String provinciaStr = transformProvinceName(originalProvinciaStr);
 						Provincia provincia = provinciaService.findByName(provinciaStr);
 
 						comuneService.create(codiceProvincia, codiceComune, nomeComune, provincia);
@@ -65,6 +65,35 @@ public class ComuneRunner implements CommandLineRunner {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private String transformProvinceName(String originalName) {
+		switch (originalName) {
+		case "Verbano-Cusio-Ossola":
+			return "Verbania";
+		case "Ascoli Piceno":
+			return "Ascoli-Piceno";
+		case "Valle d'Aosta/Vallée d'Aoste":
+			return "Aosta";
+		case "Pesaro e Urbino":
+			return "Pesaro-Urbino";
+		case "La Spezia":
+			return "La-Spezia";
+		case "Monza e della Brianza":
+			return "Monza-Brianza";
+		case "Vibo Valentia":
+			return "Vibo-Valentia";
+		case "Reggio nell'Emilia":
+			return "Reggio-Emilia";
+		case "Reggio Calabria":
+			return "Reggio-Calabria";
+		case "Bolzano/Bozen":
+			return "Bolzano";
+		case "Forlì-Cesena":
+			return "Forli-Cesena";
+		default:
+			return originalName;
 		}
 	}
 

@@ -1,5 +1,7 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.indirizzo;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -34,19 +36,18 @@ public class IndirizzoController {
 	}
 
 	@GetMapping("/{id}")
-	public Indirizzo findById(@PathVariable String id) throws NotFoundException {
+	public Indirizzo findById(@PathVariable UUID id) throws NotFoundException {
 		return is.findById(id);
 	}
 
 	@PutMapping("/{id}")
-	public Indirizzo updateById(@PathVariable String id, @RequestBody IndirizzoPayload payload)
-			throws NotFoundException {
+	public Indirizzo updateById(@PathVariable UUID id, @RequestBody IndirizzoPayload payload) throws NotFoundException {
 		return is.findByIdAndUpadate(id, payload);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteById(@PathVariable String id) throws NotFoundException {
+	public void deleteById(@PathVariable UUID id) throws NotFoundException {
 		is.findByIdAndDelete(id);
 	}
 

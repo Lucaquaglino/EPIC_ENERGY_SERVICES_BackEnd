@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Repository
 public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 	  
-	Page<Fattura> findByCliente(UUID idCliente, Pageable pageable);
+	Page<Fattura> findByIdCliente(UUID idCliente, Pageable pageable);
     Page<Fattura> findByStatoFattura(StatoFattura statoFattura, Pageable pageable);
     Page<Fattura> findByData(LocalDate data, Pageable pageable);
     Page<Fattura> findByAnno(int anno, Pageable pageable);
