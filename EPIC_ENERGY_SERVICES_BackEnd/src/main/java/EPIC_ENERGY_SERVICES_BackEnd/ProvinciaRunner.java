@@ -42,7 +42,7 @@ public class ProvinciaRunner implements CommandLineRunner {
 						String sigla = record.get(0);
 						String provincia = record.get(1);
 						String regione = record.get(2);
-
+						provincia = transformRegionName(provincia);
 						provinciaService.create(sigla, provincia, regione);
 					}
 				}
@@ -51,6 +51,19 @@ public class ProvinciaRunner implements CommandLineRunner {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private String transformRegionName(String provincia) {
+		switch (provincia) {
+		case "Carbonia Iglesias":
+		case "Medio Campidano":
+		case "Ogliastra":
+		case "Olbia Tempio":
+			return "Sud Sardegna";
+
+		default:
+			return provincia;
 		}
 	}
 }
