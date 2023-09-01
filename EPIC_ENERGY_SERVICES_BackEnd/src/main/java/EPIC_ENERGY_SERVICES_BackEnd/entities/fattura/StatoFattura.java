@@ -1,5 +1,5 @@
 package EPIC_ENERGY_SERVICES_BackEnd.entities.fattura;
 
 public enum StatoFattura {
-	CODA, INVIATO, CONSEGNATO, MANCATA_CONSEGNA, SCARTO
+	EMESSA, DA_PAGARE, PAGATA, SCADUTA
 }
