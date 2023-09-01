@@ -79,6 +79,18 @@ public class FatturaController {
 		return fs.filterByData(data, page, pageSize);
 	}
 
+	//--------------------------------------------------------------------------- 
+	// filtro per anno
+	@GetMapping("/filter/anno")
+	public Page<Fattura> filterByAnno(
+	        @RequestParam int anno,
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "10") int pageSize
+	) {
+	   return fs.filterByAnno(anno, page, pageSize);
+	}
+	
+
 	// ---------------------------------------------------------------------------
 	// filtro per range importi
 	@GetMapping("/filter/importRange")
