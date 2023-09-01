@@ -75,6 +75,38 @@ public class ClienteService {
 		// Salva il cliente aggiornato nel repository
 		return cr.save(cliente);
 	}
+	
+	// ---------------------------------------------------------------------------
+	// modifica cliente
+	public Cliente findByIdAndUpdate(UUID id, ClientePayload body) throws NotFoundException {
+		
+		Cliente found = this.findById(id);
+		
+		found.setRagioneSociale(body.getRagioneSociale());
+		found.setPartitaIva(body.getPartitaIva());
+		found.setEmailCliente(body.getEmailCliente());
+		found.setPec(body.getPec());
+		found.setTelefonoCliente(body.getTelefonoCliente());
+		found.setTipoCliente(body.getTipoCliente());
+		found.setNomeContatto(body.getNomeContatto());
+		found.setCognomeContatto(body.getCognomeContatto());
+		found.setEmailContatto(body.getEmailContatto());
+		found.setTelefonoContatto(body.getTelefonoContatto());
+		
+		if(!body.getViaUno().equals(found.getIndirizzoSedeLegale().getVia())) {
+			Comune comune = comuneService.findByNameIgnoreCase(body.getComuneUno());
+			Indirizzo indirizzo = is.create(body.getViaUno(), body.getCivicoUno(), body.getLocalitaUno(), body.getCapUno(), comune);
+			found.setIndirizzoSedeLegale(indirizzo);
+		}
+			
+		if(!body.getViaDue().equals(found.getIndirizzoSedeOperativa().getVia())) {
+			Comune comune = comuneService.findByNameIgnoreCase(body.getComuneDue());
+			Indirizzo indirizzo = is.create(body.getViaDue(), body.getCivicoDue(), body.getLocalitaDue(), body.getCapDue(), comune);
+			found.setIndirizzoSedeLegale(indirizzo);
+		}
+			
+		return cr.save(found);
+	}
 
 	// ---------------------------------------------------------------------------
 	// trova cliente per id
