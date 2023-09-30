@@ -37,7 +37,7 @@ public class IndirizzoRunner implements CommandLineRunner {
 			List<Comune> comuni = comuneService.find();
 			int comuniSize = comuni.size();
 
-			for (int i = 0; i < 20; i++) {
+			for (int i = 0; i < 200; i++) {
 				String via = faker.address().streetAddress();
 				String civico = faker.address().streetAddressNumber();
 				String localita = faker.address().cityName();
