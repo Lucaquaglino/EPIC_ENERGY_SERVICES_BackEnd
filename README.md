@@ -2,9 +2,9 @@
 
 
 
-<img src="https://res.cloudinary.com/dohzyvzxv/image/upload/v1695863064/Acquisizione_schermata_28.09.2023_alle_03.03.09_psdch7.png" alt="" style="height: 50px; width:200px">
 
-Backend Repository Link: https://github.com/Lucaquaglino/Epic_Trading_backEnd
+
+Frontend Repository Link: https://github.com/Lucaquaglino/EPIC_ENERGY_SERVICES_FrontEnd
    
 
 Benvenuti all'applicazione Gestionale di clienti e fatture! Questa applicazione è stata sviluppata utilizzando Angular, Bootstrap, Java, Spring Boot e PostgreSQL e offre una piattaforma di gestione clienti e fatture. Di seguito sono descritte le principali funzionalità e istruzioni per l'installazione e l'esecuzione.
