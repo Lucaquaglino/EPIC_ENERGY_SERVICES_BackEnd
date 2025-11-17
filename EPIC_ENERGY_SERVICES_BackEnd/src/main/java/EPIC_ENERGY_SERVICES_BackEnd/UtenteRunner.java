@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
@@ -21,12 +22,15 @@ public class UtenteRunner implements CommandLineRunner {
 	@Autowired
 	UtenteService userService;
 
-	@Autowired
-	UtenteRepository utenteRepo;
+        @Autowired
+        UtenteRepository utenteRepo;
 
-	
-	@Override
-	public void run(String... args) throws Exception {
+        @Autowired
+        PasswordEncoder passwordEncoder;
+
+
+        @Override
+        public void run(String... args) throws Exception {
 
 		Faker faker = new Faker(new Locale("it"));
 
@@ -38,7 +42,7 @@ public class UtenteRunner implements CommandLineRunner {
 				String name = faker.name().firstName();
 				String surname = faker.name().lastName();
 				String email = faker.internet().emailAddress();
-				String password = "1234";
+                                String password = passwordEncoder.encode("1234");
 				Ruolo ruolo = (i % 2 == 0) ? Ruolo.UTENTE : Ruolo.ADMIN;
 				
 				

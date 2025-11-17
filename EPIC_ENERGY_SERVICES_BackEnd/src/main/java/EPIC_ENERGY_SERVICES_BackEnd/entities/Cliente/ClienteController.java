@@ -48,10 +48,10 @@ public class ClienteController {
 		cs.findByIdAndDelete(id);
 	}
 	
-	@PutMapping("/{Id}")
-	public Cliente updateCliente(@PathVariable UUID id, @RequestBody ClientePayload body) throws NotFoundException {
-		return cs.findByIdAndUpdate(id, body);
-	}
+        @PutMapping("/{id}")
+        public Cliente updateCliente(@PathVariable("id") UUID id, @RequestBody ClientePayload body) throws NotFoundException {
+                return cs.findByIdAndUpdate(id, body);
+        }
 
 	//--------------------------------------------------------------------------- ordinamenti
 	@GetMapping("")
