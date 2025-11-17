@@ -41,33 +41,35 @@ public class ClienteRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		List<Cliente> clientiDB = clienteRepo.findAll();
 		Faker faker = new Faker(new Locale("it"));
-		if (clientiDB.isEmpty()) {
-			for (int y = 0; y < 100; y++) {
-				Cliente clientePayload = new Cliente();
-				clientePayload.setRagioneSociale(faker.company().name());
-				clientePayload.setPartitaIva(faker.number().numberBetween(100000000, 999999999));
-				clientePayload.setEmailCliente(faker.internet().emailAddress());
-				clientePayload.setPec(UUID.randomUUID().toString());
-				clientePayload.setTelefonoCliente(faker.number().numberBetween(1000000000, 999999999));
-				clientePayload.setTipoCliente(faker.options().option(TIPO_CLIENTE.class));
+                if (clientiDB.isEmpty()) {
+                        List<Indirizzo> allIndirizzi = indirizzoService.find();
+                        if (allIndirizzi.isEmpty()) {
+                                throw new IllegalStateException(
+                                                "Impossibile generare clienti fittizi senza indirizzi pre-caricati");
+                        }
+                        Random rand = new Random();
+                        for (int y = 0; y < 100; y++) {
+                                Cliente clientePayload = new Cliente();
+                                clientePayload.setRagioneSociale(faker.company().name());
+                                clientePayload.setPartitaIva(faker.number().numberBetween(100000000, 999999999));
+                                clientePayload.setEmailCliente(faker.internet().emailAddress());
+                                clientePayload.setPec(UUID.randomUUID().toString());
+                                clientePayload.setTelefonoCliente(faker.number().numberBetween(100000000, 999999999));
+                                clientePayload.setTipoCliente(faker.options().option(TIPO_CLIENTE.class));
 
-				clientePayload.setNomeContatto(faker.name().firstName());
-				clientePayload.setCognomeContatto(faker.name().lastName());
-				clientePayload.setEmailContatto(faker.internet().emailAddress());
-				int telefonoContatto = faker.number().numberBetween(1000000000, 99999999);
-				clientePayload.setTelefonoContatto(telefonoContatto);
+                                clientePayload.setNomeContatto(faker.name().firstName());
+                                clientePayload.setCognomeContatto(faker.name().lastName());
+                                clientePayload.setEmailContatto(faker.internet().emailAddress());
+                                int telefonoContatto = faker.number().numberBetween(100000000, 999999999);
+                                clientePayload.setTelefonoContatto(telefonoContatto);
 
-				List<Indirizzo> allIndirizzi = indirizzoService.find();
+                                int randomNumber1 = rand.nextInt(allIndirizzi.size());
+                                int randomNumber2 = rand.nextInt(allIndirizzi.size());
 
-				Random rand = new Random();
-				int randomNumber1 = allIndirizzi.size() > 0 ? rand.nextInt(allIndirizzi.size()) : 0;
-
-				int randomNumber2 = allIndirizzi.size() > 0 ? rand.nextInt(allIndirizzi.size()) : 0;
-
-				Indirizzo indLegale = allIndirizzi.get(randomNumber1);
-				clientePayload.setIndirizzoSedeLegale(indLegale);
-				Indirizzo indSedeOperativa = allIndirizzi.get(randomNumber2);
-				clientePayload.setIndirizzoSedeOperativa(indSedeOperativa);
+                                Indirizzo indLegale = allIndirizzi.get(randomNumber1);
+                                clientePayload.setIndirizzoSedeLegale(indLegale);
+                                Indirizzo indSedeOperativa = allIndirizzi.get(randomNumber2);
+                                clientePayload.setIndirizzoSedeOperativa(indSedeOperativa);
 
 				// Genera date casuali
 				LocalDate dataInserimento = LocalDate.of(faker.number().numberBetween(2012, 2023),
